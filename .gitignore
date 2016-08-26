@@ -22,6 +22,9 @@ build/*
 *.xml
 *.asv
 *.mp4
+*.png
+*.fig
+*.jpg
 
 # Packages #
 ############
