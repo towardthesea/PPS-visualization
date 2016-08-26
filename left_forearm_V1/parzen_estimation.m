@@ -11,6 +11,7 @@
 
 % Author: NGUYEN Dong Hai Phuong
 % Email: phuong.nguyen@iit.it; ph17dn@gmail.com
+% Thanks to the help of Alessandro Roncone for this function
 
 %%
 function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)

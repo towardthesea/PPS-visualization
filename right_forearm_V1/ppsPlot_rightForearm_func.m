@@ -83,52 +83,12 @@ end
 
 %% Allocate imported array to column variable names
 r_forearm = cell2mat(raw(:, 1));
-% VarName2 = cell2mat(raw(:, 2));
-% VarName3 = cell2mat(raw(:, 3));
-% VarName4 = cell2mat(raw(:, 4));
-% VarName5 = cell2mat(raw(:, 5));
-% VarName6 = cell2mat(raw(:, 6));
-% VarName7 = cell2mat(raw(:, 7));
-% VarName8 = cell2mat(raw(:, 8));
-% VarName9 = cell2mat(raw(:, 9));
-% VarName10 = cell2mat(raw(:, 10));
-% VarName11 = cell2mat(raw(:, 11));
-% VarName12 = cell2mat(raw(:, 12));
-% VarName13 = cell2mat(raw(:, 13));
-% VarName14 = cell2mat(raw(:, 14));
-% VarName15 = cell2mat(raw(:, 15));
-% VarName16 = cell2mat(raw(:, 16));
-% VarName17 = cell2mat(raw(:, 17));
-% VarName18 = cell2mat(raw(:, 18));
-% VarName19 = cell2mat(raw(:, 19));
-% VarName20 = cell2mat(raw(:, 20));
-% VarName21 = cell2mat(raw(:, 21));
-% VarName22 = cell2mat(raw(:, 22));
-% VarName23 = cell2mat(raw(:, 23));
-% VarName24 = cell2mat(raw(:, 24));
-% VarName25 = cell2mat(raw(:, 25));
-% VarName26 = cell2mat(raw(:, 26));
-% VarName27 = cell2mat(raw(:, 27));
-% VarName28 = cell2mat(raw(:, 28));
-% VarName29 = cell2mat(raw(:, 29));
-% VarName30 = cell2mat(raw(:, 30));
-% VarName31 = cell2mat(raw(:, 31));
-% VarName32 = cell2mat(raw(:, 32));
-% VarName33 = cell2mat(raw(:, 33));
-% VarName34 = cell2mat(raw(:, 34));
-% VarName35 = cell2mat(raw(:, 35));
-% VarName36 = cell2mat(raw(:, 36));
-% VarName37 = cell2mat(raw(:, 37));
-% VarName38 = cell2mat(raw(:, 38));
-% VarName39 = cell2mat(raw(:, 39));
-% VarName40 = cell2mat(raw(:, 40));
-% VarName41 = cell2mat(raw(:, 41));
+
 numPts = 20;
 d = .3/numPts;
 D = -.1:d:.2-d;
 xi = -.1:d/10:.2-d;
-% kernel = 1/sqrt(2*pi*sigma)*exp(-()^2/(2*sigma^2)
-% D = 1:20;
+
 j=1;
 for i=1:length(r_forearm)
     values(i,1:length(raw)-1) = cell2mat(raw(i,2:length(raw)));
@@ -138,12 +98,9 @@ for i=1:length(r_forearm)
     % Remove the component equal to NaN
     pn = p(i,:) + n(i,:);
     idZero = find(pn==0 & p(i,:)==0);
-%     P(i,1:(length(raw)-1)/2) = values(i,1:(length(raw)-1)/2)./values(i,(length(raw)-1)/2+1:(length(raw)-1));
     P(i,1:(length(raw)-1)/2)= p(i,:)./(n(i,:)+p(i,:));
     P(i,idZero) = 0;
     %===================================
-
-%     P(i,1:(length(raw)-1)/2) = values(i,(length(raw)-1)/2+1:(length(raw)-1))./values(i,1:(length(raw)-1)/2);
     if (any(p(i,:)~=0))
         figureTitle = sprintf('Taxel %ith',r_forearm(i));
         [f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,0);          
@@ -217,13 +174,9 @@ for i=1:length(r_forearm)
 end
 
 xlabel('Taxel position x (m)');
-% set(gca,'XDir','reverse');
 ylabel('Taxel position y (m)');
 zlabel('Taxel position z (m)');
-% set(gca,'ZDir','reverse');
-% axis equal;
 hold off; grid on;
-% hAxes = axes;
 clear taxel_pos pos1 pos0_r
 
 %% Clear temporary variables

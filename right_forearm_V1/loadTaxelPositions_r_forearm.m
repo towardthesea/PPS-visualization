@@ -1,5 +1,6 @@
 %% About 
 % Script to load taxel position for visualize the PPS of the right forearm of iCub
+% Originally from the file 'plotTaxelPositions.m'
 % Author: NGUYEN Dong Hai Phuong
 % Email: phuong.nguyen@iit.it; ph17dn@gmail.com
 

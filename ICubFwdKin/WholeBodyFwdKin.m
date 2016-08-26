@@ -51,18 +51,6 @@ set(cbh,'YTick',-1:.1:0);
 set(cbh,'YDir','reverse');
 set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
-% cd ..
-% cd WaistLeftLegFwdKin;
-% WaistLeftLegFwdKin(lltheta,1);
-% cd ..
-% cd WaistRightLegFwdKin;
-% WaistRightLegFwdKin(rltheta,1);
-% cd ..
-% cd WaistInertiaFwdKin;
-
-
-% set(gca,'Units','centimeters','FontUnits','points','FontSize',14);
-% hold on;        grid on;        view(3);
 xlabel('x(m)','FontSize',14);    ylabel('y(m)','FontSize',14);    zlabel('z(m)','FontSize',14);
 set(gcf, 'Position', get(0, 'Screensize'));
 
