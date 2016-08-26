@@ -5,4 +5,4 @@ The repo provide Matlab script and function to visualize the peripersonal space 
 
 Please run the command in the same folder of add the path of the folder before running
 
-``**WholeBodyFwdKin**``: to visualize the whole upper body PPS
+**WholeBodyFwdKin**: to visualize the whole upper body PPS
