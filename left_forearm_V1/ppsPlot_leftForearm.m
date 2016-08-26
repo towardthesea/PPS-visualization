@@ -22,13 +22,13 @@ close all
 printToFile = 0;
 
 %% Initialize variables.
-filename = 'E:\Dropbox\PhD_IIT\1st Year\iCubSkin\left_forearm_V1\taxels1D_learned_l_forearm.ini';
-delimiter = ' ';
+filename = 'taxels1D_learned_l_forearm.ini'
+delimiter = {' ','(',')'};
 startRow = 8;
 
 %% Read columns of data as strings:
 % For more information, see the TEXTSCAN documentation.
-formatSpec = '%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%[^\n\r]';
+formatSpec = '%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%[^\n\r]';
 
 %% Open the text file.
 fileID = fopen(filename,'r');
@@ -50,7 +50,7 @@ for col=1:length(dataArray)-1
 end
 numericData = NaN(size(dataArray{1},1),size(dataArray,2));
 
-for col=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41]
+for col=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44]
     % Converts strings in the input cell array to numbers. Replaced non-numeric
     % strings with NaN.
     rawData = dataArray{col};
@@ -83,9 +83,19 @@ for col=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
 end
 
 
-%% Allocate imported array to column variable names
-l_forearm = cell2mat(raw(:, 1));
+%% Exclude columns with non-numeric cells
+I = ~all(cellfun(@(x) (isnumeric(x) || islogical(x)) && ~isnan(x),raw),1); % Find columns with non-numeric cells
+raw(:,I) = [];
 
+%% Initialize column outputs.
+columnIndices = cumsum(~I);
+
+%% Allocate imported array to column variable names
+if ~I(1)
+    l_forearm = cell2mat(raw(:, columnIndices(1)));
+end
+
+%%
 numPts = 20;
 d = .3/numPts;
 D = -.1:d:.2-d;
@@ -269,7 +279,7 @@ set(gca,'ZDir','reverse');
 hold off; grid on;
 
 cbh=colorbar;
-set(cbh,'YTick',-1:.1:0);
+% set(cbh,'YTick',-1:.1:0);
 set(cbh,'YDir','reverse');
 set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
