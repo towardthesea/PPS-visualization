@@ -148,11 +148,11 @@ end
 
 posOrigin = matT(1:3,4)';
         
-%% Plot whole PPS from 0->0.2cm
+%% Plot whole PPS from 0->0.2m
 
 
-figure(fig.Number); hold on
-title('PPS of left foreram taxels from 0->0.2cm (in 1st wrist FoR - FoR_8)');
+figure(fig); hold on
+title('PPS of left foreram taxels from 0->0.2m (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M
@@ -167,6 +167,12 @@ for i=1:length(l_forearm)
         for j=1:M
             if (l_forearm(i)==j)
                 h = hist_map3d([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5)*x(70:end),-f(i,70:end));
+                % -sign(j-192.5) is to differentiate between lower and
+                % upper portion of forearm (from taxelID 193, the other
+                % part starts) - different orientation
+                % x(70:end) - to plot only the positive part of RF -
+                % dependent on the number of bins 
+                % revertign the signs for the heatmap -f(i,70:end)
                           
                 v1 = [taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)-sign(j-192.5)*.05];
                 vz = [0 0 -sign(j-192.5)*.05];

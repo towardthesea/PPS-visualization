@@ -1,11 +1,19 @@
 %% About 
-% Script to visualize the PPS of the upper body of iCub with the link of
+% Script to visualize the peripersonal space (PPS) representation of the upper body of iCub with the links of
 % both arm and the head
-% Created by Francesco Nori, modified for PPS by following author
+% Using http://wiki.icub.org/wiki/ICubForwardKinematics (Created by Francesco Nori)
 % Author: NGUYEN Dong Hai Phuong
 % Email: phuong.nguyen@iit.it; ph17dn@gmail.com
+% Contributions: Matej Hoffmann, matej.hoffmann@iit.it
 
 %%
+
+addpath(genpath('./ICubFwdKin'));
+addpath('./left_forearm_V1');
+addpath('./left_palm_V2.1');
+addpath('./right_forearm_V1');
+addpath('./right_palm_V2.1');
+
 
 close all
 clear all
@@ -16,7 +24,6 @@ ratheta = [ -25.8  60.0     0.0     50    0.0   0.0  40.0]*pi/180;
 latheta = [ -25.8  60.0     0.0     50    0.0   0.0  40.0]*pi/180;
 rltheta = [0, 0, 0, 0, 0, 0]*pi/180;
 lltheta = [0, 0, 0, 0, 0, 0]*pi/180;
-
 
 % cd WaistHeadFwdKin;
 fig = figure(1);
@@ -54,7 +61,7 @@ set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1',
 xlabel('x(m)','FontSize',14);    ylabel('y(m)','FontSize',14);    zlabel('z(m)','FontSize',14);
 set(gcf, 'Position', get(0, 'Screensize'));
 
-filename = sprintf('upperbodyPPS.jpg');
-print(fig, '-djpeg',filename);
+%filename = sprintf('upperbodyPPS.jpg');
+%print(fig, '-djpeg',filename);
 % filename = sprintf('upperbodyPPS.pdf');
 % print(fig, '-dpdf', '-bestfit',filename);

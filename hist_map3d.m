@@ -43,6 +43,8 @@ size(a);
 i = 1;
 % for radius = 0:10*d:L-d
 for radius = range(1):10*d:range(end)
+%  radius is not the radius at the base, but radius of the circles
+%  (surfaces) drawn from the apex - in the z-plane (taxel normal)
 %     iValue = i
 %     rad = radius
     theta = linspace(0,2*pi,res);

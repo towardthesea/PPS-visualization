@@ -149,7 +149,7 @@ posOrigin = matT(1:3,4)';
 %% Plot whole PPS from 0->0.2cm
 
 
-figure(fig.Number); hold on
+figure(fig); hold on
 title('PPS of right foreram taxels from 0->0.2cm (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
