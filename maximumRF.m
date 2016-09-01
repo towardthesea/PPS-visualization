@@ -5,21 +5,26 @@ clear;
 
 Z_MAX = 0.2; % max extent of RF in z (normal to taxel)
 
-APERTURE_DEG = 80; %the cone opening angle or aperture
+APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
 
-u = linspace(0,Z_MAX,40);
+res = 40; % resolution
+
+u = linspace(0,Z_MAX,res);
+azimuth = linspace(0,2*pi,res);
+
+%% CONE
 %global_r = u(end) * tan(APERTURE_RAD / 2); % at base (maximum)
-thetas = linspace(0,2*pi,40);
+
 x=[]; y=[]; z=[];
 
 
 for i=1:length(u)
-    for j=1:(length(thetas)-1)
+    for j=1:(length(azimuth)-1)
         z = [z; u(i)];        
         r = u(i) * tan(APERTURE_RAD / 2); 
-        x = [x; r*cos(thetas(j)) ]; 
-        y = [y; r*sin(thetas(j)) ];
+        x = [x; r*cos(azimuth(j)) ]; 
+        y = [y; r*sin(azimuth(j)) ];
         %x = [x; (u(i) / Z_MAX) *global_r*cos(thetas(j)) ]; 
         %y = [y; (u(i) / Z_MAX) *global_r*sin(thetas(j)) ];
     end    
@@ -28,6 +33,7 @@ end
 
 f1 = figure(1);
 clf(f1);
+set(f1,'name','RF as a cone');
 hold on;
 scatter3(x,y,z);
 %line([0 r],[0 0],[0 Z_MAX] );
@@ -40,6 +46,7 @@ ylabel('y (m)');
 zlabel('z (m)');
 hold off;
 
+view(3);
 %plot3(x,y,z,'o');
 
 % f2 = figure(2);
@@ -80,5 +87,59 @@ hold off;
 % y = r .* sin(t);
 % figure
 % plot3(x,y,z,'.-')
+
+%% SPHERICAL SECTOR
+
+
+f2 = figure(2);
+clf(f2);
+set(f2,'name','RF as a spherical sector');
+hold on;
+ 
+%polar_angle = linspace(-APERTURE_RAD/2,APERTURE_RAD/2,res); 
+polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab: elevation is angular displacement in radians from the x-y plane
+% also called co-latitude, zenith angle, normal angle, or inclination angle.
+[theta,phi] = meshgrid(azimuth,polar_angle);
+ 
+for radius = 0.0:0.01:Z_MAX
+    [xs,ys,zs] = sph2cart(theta,phi,radius);
+    h_surface = surf(xs,ys,zs);
+    set(h_surface, 'FaceColor',[0.3 0.3 0.3], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
+    %plot3(xs,ys,zs);
+    %set(h(i),'FaceAlpha',transparent);
+    
+end
+axis equal;
+grid on;
+xlabel('x (m)');
+ylabel('y (m)');
+zlabel('z (m)');
+hold off;
+
+view(3);
+
+% 
+% % something from matlab central: http://it.mathworks.com/matlabcentral/newsreader/view_thread/280431
+% r = 5;
+% [theta,phi] = meshgrid(linspace(0,.4*pi,32),linspace(-pi/2,pi/2,32));
+% x1 = r.*cos(theta).*cos(phi);
+% y1 = r.*sin(theta).*cos(phi);
+% z1 = r.*sin(phi);
+% theta = 0;
+% [r,phi] = meshgrid(linspace(0,5,32),linspace(-pi/2,pi/2,32));
+% x2 = r.*cos(theta).*cos(phi);
+% y2 = r.*sin(theta).*cos(phi);
+% z2 = r.*sin(phi);
+% theta = .4*pi;
+% [r,phi] = meshgrid(linspace(0,5,32),linspace(-pi/2,pi/2,32));
+% x3 = r.*cos(theta).*cos(phi);
+% y3 = r.*sin(theta).*cos(phi);
+% z3 = r.*sin(phi);
+% x = [x1;x2;x3];
+% y = [y1;y2;y3];
+% z = [z1;z2;z3];
+% surf(x,y,z)
+% axis square
+
 
 
