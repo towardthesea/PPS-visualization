@@ -1,17 +1,30 @@
-%% About 
+% About 
 % Script to visualize maximum visual receptive field (RF) around a taxel for peripersonal space (PPS) representations
 % Author: Matej Hoffmann, matej.hoffmann@iit.it
+
+%% INIT
+
 clear;
 
-Z_MAX = 0.2; % max extent of RF in z (normal to taxel)
+Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
 
 APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
 
-res = 40; % resolution
+res = 10; % resolution
 
 u = linspace(0,Z_MAX,res);
 azimuth = linspace(0,2*pi,res);
+
+DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the volume to start at the apex, but we won't to truncate it such that it starts 
+% at the height with this radius;
+
+CONE_HEIGHT_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / tan(APERTURE_RAD/2);    % tan(APERTURE_RAD/2) = radius_xy / z_offset; 
+%Z_OFFSET = 0;
+SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / cos(APERTURE_RAD/2);    % cos(APERTURE_RAD/2) = radius_xy / sphere_radius;
+% here the radius of the sphere will at the same time be used as the
+% z-offset - with the radius then equal to cone height + cap height
+
 
 %% CONE
 %global_r = u(end) * tan(APERTURE_RAD / 2); % at base (maximum)
@@ -101,22 +114,31 @@ polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab
 % also called co-latitude, zenith angle, normal angle, or inclination angle.
 [theta,phi] = meshgrid(azimuth,polar_angle);
  
-for radius = 0.0:0.01:Z_MAX
-    [xs,ys,zs] = sph2cart(theta,phi,radius);
+radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,Z_MAX+SPHERE_RADIUS_AT_OFFSET,res);
+for i=1:length(radius_z)
+    [xs,ys,zs] = sph2cart(theta,phi,radius_z(i));
+    zs = zs - CONE_HEIGHT_AT_OFFSET;
     h_surface = surf(xs,ys,zs);
-    set(h_surface, 'FaceColor',[0.3 0.3 0.3], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
+    set(h_surface, 'FaceColor',[0.9 0.9 0.9], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
     %plot3(xs,ys,zs);
-    %set(h(i),'FaceAlpha',transparent);
     
 end
-axis equal;
+
+plot3(0,0,0,'x','MarkerSize',25);
+
 grid on;
 xlabel('x (m)');
 ylabel('y (m)');
 zlabel('z (m)');
+zlim([-0.1 Z_MAX+0.01]);
+axis equal;
 hold off;
 
-view(3);
+
+%view(3);
+az = 0; el = 0;
+view(az, el);
+
 
 % 
 % % something from matlab central: http://it.mathworks.com/matlabcentral/newsreader/view_thread/280431
