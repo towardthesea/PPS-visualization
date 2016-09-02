@@ -11,17 +11,17 @@ Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
 APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
 
-res = 10; % resolution
+res = 20; % resolution
 
 u = linspace(0,Z_MAX,res);
 azimuth = linspace(0,2*pi,res);
 
-DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the volume to start at the apex, but we won't to truncate it such that it starts 
+DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the volume to start at the apex, but we want to truncate it such that it starts 
 % at the height with this radius;
 
 CONE_HEIGHT_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / tan(APERTURE_RAD/2);    % tan(APERTURE_RAD/2) = radius_xy / z_offset; 
 %Z_OFFSET = 0;
-SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / cos(APERTURE_RAD/2);    % cos(APERTURE_RAD/2) = radius_xy / sphere_radius;
+SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / sin(APERTURE_RAD/2);    % cos(APERTURE_RAD/2) = radius_xy / sphere_radius;
 % here the radius of the sphere will at the same time be used as the
 % z-offset - with the radius then equal to cone height + cap height
 
@@ -115,6 +115,11 @@ polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab
 [theta,phi] = meshgrid(azimuth,polar_angle);
  
 radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,Z_MAX+SPHERE_RADIUS_AT_OFFSET,res);
+
+%view(3);
+az = 0; el = 0;
+view(az, el);
+
 for i=1:length(radius_z)
     [xs,ys,zs] = sph2cart(theta,phi,radius_z(i));
     zs = zs - CONE_HEIGHT_AT_OFFSET;
@@ -130,14 +135,11 @@ grid on;
 xlabel('x (m)');
 ylabel('y (m)');
 zlabel('z (m)');
-zlim([-0.1 Z_MAX+0.01]);
+zlim([-0.1 Z_MAX+0.02]);
 axis equal;
 hold off;
 
 
-%view(3);
-az = 0; el = 0;
-view(az, el);
 
 
 % 
