@@ -7,6 +7,8 @@
 clear;
 
 Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
+PLOT_NEGATIVE_RF = true;
+Z_NEGATIVE_MAX = -0.1;
 
 APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
@@ -129,13 +131,28 @@ for i=1:length(radius_z)
     
 end
 
-plot3(0,0,0,'x','MarkerSize',25);
+
+if PLOT_NEGATIVE_RF
+    radius_z_neg = linspace(SPHERE_RADIUS_AT_OFFSET,abs(Z_NEGATIVE_MAX)+SPHERE_RADIUS_AT_OFFSET,res);
+    for i=1:length(radius_z)
+        [xs,ys,zs] = sph2cart(theta,phi,radius_z_neg(i));
+        zs = zs - CONE_HEIGHT_AT_OFFSET;
+        zs = zs * -1;
+        h_surface = surf(xs,ys,zs);
+        set(h_surface, 'FaceColor',[0.9 0.9 0.9], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
+    %plot3(xs,ys,zs);
+    
+end
+    
+end
+
+plot3(0,0,0,'o','MarkerSize',25);
 
 grid on;
 xlabel('x (m)');
 ylabel('y (m)');
 zlabel('z (m)');
-zlim([-0.1 Z_MAX+0.02]);
+zlim([Z_NEGATIVE_MAX-0.02 Z_MAX+0.02]);
 axis equal;
 hold off;
 
