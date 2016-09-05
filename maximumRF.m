@@ -6,8 +6,10 @@
 
 clear;
 
-Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
 PLOT_NEGATIVE_RF = true;
+TEST_INSIDE_RF = true;
+
+Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
 Z_NEGATIVE_MAX = -0.1;
 
 APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
@@ -116,7 +118,7 @@ polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab
 % also called co-latitude, zenith angle, normal angle, or inclination angle.
 [theta,phi] = meshgrid(azimuth,polar_angle);
  
-radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,Z_MAX+SPHERE_RADIUS_AT_OFFSET,res);
+radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,Z_MAX+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET),res);
 
 %view(3);
 az = 0; el = 0;
@@ -133,7 +135,7 @@ end
 
 
 if PLOT_NEGATIVE_RF
-    radius_z_neg = linspace(SPHERE_RADIUS_AT_OFFSET,abs(Z_NEGATIVE_MAX)+SPHERE_RADIUS_AT_OFFSET,res);
+    radius_z_neg = linspace(SPHERE_RADIUS_AT_OFFSET,abs(Z_NEGATIVE_MAX)+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET),res);
     for i=1:length(radius_z)
         [xs,ys,zs] = sph2cart(theta,phi,radius_z_neg(i));
         zs = zs - CONE_HEIGHT_AT_OFFSET;
@@ -158,7 +160,19 @@ else
     zlim([-0.02 Z_MAX+0.02]);
 end
 axis equal;
+
+
+if TEST_INSIDE_RF
+    
+    
+end
+
+
+
+
 hold off;
+
+
 
 
 
