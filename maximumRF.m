@@ -146,13 +146,17 @@ end
     
 end
 
-plot3(0,0,0,'o','MarkerSize',25);
+plot3(0,0,0,'o','MarkerSize',10,'MarkerFaceColor','red');
 
 grid on;
 xlabel('x (m)');
 ylabel('y (m)');
 zlabel('z (m)');
-zlim([Z_NEGATIVE_MAX-0.02 Z_MAX+0.02]);
+if PLOT_NEGATIVE_RF
+    zlim([Z_NEGATIVE_MAX-0.02 Z_MAX+0.02]);
+else
+    zlim([-0.02 Z_MAX+0.02]);
+end
 axis equal;
 hold off;
 
