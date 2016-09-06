@@ -7,6 +7,7 @@
 clear;
 
 PLOT_NEGATIVE_RF = true;
+PLOT_PROJECTIONS = true;
 TEST_INSIDE_RF = true;
 
 Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
@@ -29,6 +30,10 @@ SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / sin(APERTURE_RAD/2);    % 
 % here the radius of the sphere will at the same time be used as the
 % z-offset - with the radius then equal to cone height + cap height
 
+if TEST_INSIDE_RF
+    SAMPLE_MAX_ALL_DIM = 0.2;
+    SAMPLE_MIN_ALL_DIM = -0.2;
+end
 
 %% CONE
 %global_r = u(end) * tan(APERTURE_RAD / 2); % at base (maximum)
@@ -106,31 +111,32 @@ view(3);
 % plot3(x,y,z,'.-')
 
 %% SPHERICAL SECTOR
-
-
-f2 = figure(2);
-clf(f2);
-set(f2,'name','RF as a spherical sector');
-hold on;
  
 %polar_angle = linspace(-APERTURE_RAD/2,APERTURE_RAD/2,res); 
 polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab: elevation is angular displacement in radians from the x-y plane
 % also called co-latitude, zenith angle, normal angle, or inclination angle.
 [theta,phi] = meshgrid(azimuth,polar_angle);
  
-radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,Z_MAX+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET),res);
+max_radius_z = Z_MAX+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET);
+radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,max_radius_z,res);
+
+
+f2 = figure(2);
+clf(f2);
+set(f2,'name','RF as a spherical sector');
+hold on;
 
 %view(3);
 az = 0; el = 0;
 view(az, el);
 
+
 for i=1:length(radius_z)
     [xs,ys,zs] = sph2cart(theta,phi,radius_z(i));
     zs = zs - CONE_HEIGHT_AT_OFFSET;
     h_surface = surf(xs,ys,zs);
-    set(h_surface, 'FaceColor',[0.9 0.9 0.9], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
     %plot3(xs,ys,zs);
-    
+    set(h_surface, 'FaceColor',[0.9 0.9 0.9], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
 end
 
 
@@ -143,13 +149,11 @@ if PLOT_NEGATIVE_RF
         h_surface = surf(xs,ys,zs);
         set(h_surface, 'FaceColor',[0.9 0.9 0.9], 'FaceAlpha',0.5); %'EdgeAlpha', 0);
     %plot3(xs,ys,zs);
-    
 end
     
 end
 
-plot3(0,0,0,'o','MarkerSize',10,'MarkerFaceColor','red');
-
+plot3(0,0,0,'o','MarkerSize',10,'MarkerFaceColor','blue');
 grid on;
 xlabel('x (m)');
 ylabel('y (m)');
@@ -163,15 +167,160 @@ axis equal;
 
 
 if TEST_INSIDE_RF
+    samples = [];
+    samples_x0 = [];
+    samples_y0 = [];
+    samples_z0 = [];
+    for i=SAMPLE_MIN_ALL_DIM:0.02:SAMPLE_MAX_ALL_DIM
+        for j=SAMPLE_MIN_ALL_DIM:0.02:SAMPLE_MAX_ALL_DIM
+            for k=Z_NEGATIVE_MAX-0.04:0.02:Z_MAX+0.04
+                samples= [samples ; i j k];
+                if PLOT_PROJECTIONS
+                    if i==0
+                       samples_x0 = [samples_x0 ; i j k];
+                    end
+                    if j==0
+                       samples_y0 = [samples_y0 ; i j k];
+                    end
+                    if (k>-0.00000001 && k<0.00000001)
+                       samples_z0 = [samples_z0 ; i j k];
+                    end
+                end
+            end
+        end
+    end
     
+    sphericalSectorCenter = [0,0,0-CONE_HEIGHT_AT_OFFSET];
+    plot3(sphericalSectorCenter(1),sphericalSectorCenter(2),sphericalSectorCenter(3),'d','MarkerSize',7,'MarkerFaceColor','blue');
     
-end
+  
+   for l=1:size(samples,1)
+       if(samples(l,3) >= 0)
+           if (samples(1,3)<=Z_MAX)
+             distance = sqrt( (samples(l,1)-sphericalSectorCenter(1))^2 + (samples(l,2)-sphericalSectorCenter(2))^2 + (samples(l,3)-sphericalSectorCenter(3))^2);
+             if distance<=max_radius_z
+                a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples(l,3));
+                if( (abs(samples(l,1)) < a) && (abs(samples(l,2)) < a) )
+                    plot3(samples(l,1),samples(l,2),samples(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
+                else
+                    plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
+                end
+             else
+                plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
+             end
+           else
+             plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
+           end
+       else
+           plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
+       end 
+    end
+end   
+    
+%% PLOT projections
+    
+  if (TEST_INSIDE_RF && PLOT_PROJECTIONS)
 
+       % y=0 plane
+       f3 = figure(3);
+       clf(f3);
+       set(f3,'name','RF as a spherical sector - y=0 projection');
+       hold on; 
+       for l=1:size(samples_y0,1)
+           if(samples_y0(l,3) >= 0)
+               if (samples_y0(1,3)<=Z_MAX)
+                 distance = sqrt( (samples_y0(l,1)-sphericalSectorCenter(1))^2 + (samples_y0(l,2)-sphericalSectorCenter(2))^2 + (samples_y0(l,3)-sphericalSectorCenter(3))^2);
+                 if distance<=max_radius_z
+                    a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples_y0(l,3));
+                    if( (abs(samples_y0(l,1)) < a) && (abs(samples_y0(l,2)) < a) )
+                        plot(samples_y0(l,1),samples_y0(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
+                    else
+                        plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
+                    end
+                 else
+                    plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
+                 end
+               else
+                 plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
+               end
+           else
+               plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
+           end 
+       end
+       plot(0,0,'o','MarkerSize',10,'MarkerFaceColor','blue');
+       grid on;
+       xlabel('x (m)');
+       ylabel('z (m)');
+       axis equal;
 
+       
+       % x=0 plane
+       f4 = figure(4);
+       clf(f4);
+       set(f4,'name','RF as a spherical sector - x=0 projection');
+       hold on; 
+       for l=1:size(samples_x0,1)
+           if(samples_y0(l,3) >= 0)
+               if (samples_x0(1,3)<=Z_MAX)
+                 distance = sqrt( (samples_x0(l,1)-sphericalSectorCenter(1))^2 + (samples_x0(l,2)-sphericalSectorCenter(2))^2 + (samples_x0(l,3)-sphericalSectorCenter(3))^2);
+                 if distance<=max_radius_z
+                    a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples_x0(l,3));
+                    if( (abs(samples_x0(l,1)) < a) && (abs(samples_x0(l,2)) < a) )
+                        plot(samples_x0(l,2),samples_x0(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
+                    else
+                        plot(samples_x0(l,2),samples_x0(l,3),'xr','MarkerSize',5);
+                    end
+                 else
+                    plot(samples_x0(l,2),samples_x0(l,3),'xr','MarkerSize',5);
+                 end
+               else
+                 plot(samples_x0(l,2),samples_x0(l,3),'xr','MarkerSize',5);
+               end
+           else
+               plot(samples_x0(l,2),samples_x0(l,3),'xr','MarkerSize',5);
+           end 
+       end
+       plot(0,0,'o','MarkerSize',10,'MarkerFaceColor','blue');
+       grid on;
+       xlabel('y (m)');
+       ylabel('z (m)');
+       axis equal;
+ 
+       
+       % z=0 plane
+       f5 = figure(5);
+       clf(f5);
+       set(f5,'name','RF as a spherical sector - z=0 projection');
+       hold on; 
+       for l=1:size(samples_z0,1)
+           if(samples_z0(l,3) >= 0)
+               if (samples_z0(1,3)<=Z_MAX)
+                 distance = sqrt( (samples_z0(l,1)-sphericalSectorCenter(1))^2 + (samples_z0(l,2)-sphericalSectorCenter(2))^2 + (samples_z0(l,3)-sphericalSectorCenter(3))^2);
+                 if distance<=max_radius_z
+                    a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples_z0(l,3));
+                    if( (abs(samples_z0(l,1)) < a) && (abs(samples_z0(l,2)) < a) )
+                        plot(samples_z0(l,1),samples_z0(l,2),'og','MarkerSize',5,'MarkerFaceColor','green');
+                    else
+                        plot(samples_z0(l,1),samples_z0(l,2),'xr','MarkerSize',5);
+                    end
+                 else
+                    plot(samples_z0(l,1),samples_z0(l,2),'xr','MarkerSize',5);
+                 end
+               else
+                 plot(samples_z0(l,1),samples_z0(l,2),'xr','MarkerSize',5);
+               end
+           else
+               plot(samples_z0(l,1),samples_z0(l,2),'xr','MarkerSize',5);
+           end 
+       end
+       plot(0,0,'o','MarkerSize',10,'MarkerFaceColor','blue');
+       grid on;
+       xlabel('x (m)');
+       ylabel('y (m)');
+       axis equal;
 
-
-hold off;
-
+  end
+   
 
 
 
