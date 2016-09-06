@@ -22,14 +22,14 @@ res = 20; % resolution
 u = linspace(0,Z_MAX,res);
 azimuth = linspace(0,2*pi,res);
 
-DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the volume to start at the apex, but we want to truncate it such that it starts 
-% at the height with this radius;
+DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the spherical sector to start at the apex, where it would have 0 volume
+%but we want to truncate it such that it starts at the height with this radius;
 
 CONE_HEIGHT_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / tan(APERTURE_RAD/2);    % tan(APERTURE_RAD/2) = radius_xy / z_offset; 
 %Z_OFFSET = 0;
 SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / sin(APERTURE_RAD/2);    % cos(APERTURE_RAD/2) = radius_xy / sphere_radius;
 % here the radius of the sphere will at the same time be used as the
-% z-offset - with the radius then equal to cone height + cap height
+% z-offset - with the radius then equal to cone height + spherical cap height
 
 if TEST_INSIDE_RF
     SAMPLE_MAX_ALL_DIM = 0.2;
@@ -118,7 +118,7 @@ polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab
 % also called co-latitude, zenith angle, normal angle, or inclination angle.
 [theta,phi] = meshgrid(azimuth,polar_angle);
  
-max_radius_z = Z_MAX+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET);
+max_radius_z = Z_MAX+CONE_HEIGHT_AT_OFFSET;
 radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,max_radius_z,res);
 
 
@@ -142,7 +142,7 @@ end
 
 
 if PLOT_NEGATIVE_RF
-    max_radius_z_neg = abs(Z_NEGATIVE_MAX)+SPHERE_RADIUS_AT_OFFSET-(SPHERE_RADIUS_AT_OFFSET-CONE_HEIGHT_AT_OFFSET);
+    max_radius_z_neg = abs(Z_NEGATIVE_MAX)+CONE_HEIGHT_AT_OFFSET;
     radius_z_neg = linspace(SPHERE_RADIUS_AT_OFFSET,max_radius_z_neg,res);
     for i=1:length(radius_z)
         [xs,ys,zs] = sph2cart(theta,phi,radius_z_neg(i));
