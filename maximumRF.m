@@ -205,7 +205,7 @@ if TEST_INSIDE_RF
              distance = sqrt( (samples(l,1)-sphericalSectorCenter(1))^2 + (samples(l,2)-sphericalSectorCenter(2))^2 + (samples(l,3)-sphericalSectorCenter(3))^2);
              if distance<=max_radius_z
                 a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples(l,3));
-                if( (abs(samples(l,1)) < a) && (abs(samples(l,2)) < a) )
+                if( (abs(samples(l,1)) <= a) && (abs(samples(l,2)) <= a) )
                     plot3(samples(l,1),samples(l,2),samples(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
                 else
                     plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
@@ -221,7 +221,7 @@ if TEST_INSIDE_RF
              distance = sqrt( (samples(l,1)-sphericalSectorNegativeCenter(1))^2 + (samples(l,2)-sphericalSectorNegativeCenter(2))^2 + (samples(l,3)-sphericalSectorNegativeCenter(3))^2);
              if distance<=max_radius_z_neg
                 a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + abs(samples(l,3)));
-                if( (abs(samples(l,1)) < a) && (abs(samples(l,2)) < a) )
+                if( (abs(samples(l,1)) <= a) && (abs(samples(l,2)) <= a) )
                     plot3(samples(l,1),samples(l,2),samples(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
                 else
                     plot3(samples(l,1),samples(l,2),samples(l,3),'xr','MarkerSize',5);
