@@ -14,7 +14,7 @@ SAVE_FIGS = false;
 Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
 Z_NEGATIVE_MAX = -0.1;
 
-APERTURE_DEG = 80; %the spherical sector / cone opening angle or aperture
+APERTURE_DEG = 100; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
 
 res = 20; % resolution
@@ -22,7 +22,7 @@ res = 20; % resolution
 u = linspace(0,Z_MAX,res);
 azimuth = linspace(0,2*pi,res);
 
-DESIRED_RADIUS_XY_AT_APEX = 0.05; % 0.05; % meters; we don't want the spherical sector to start at the apex, where it would have 0 volume
+DESIRED_RADIUS_XY_AT_APEX = 0.07; % 0.05; % meters; we don't want the spherical sector to start at the apex, where it would have 0 volume
 %but we want to truncate it such that it starts at the height with this radius;
 
 CONE_HEIGHT_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / tan(APERTURE_RAD/2);    % tan(APERTURE_RAD/2) = radius_xy / z_offset; 
@@ -251,7 +251,7 @@ end
                  distance = sqrt( (samples_y0(l,1)-sphericalSectorCenter(1))^2 + (samples_y0(l,2)-sphericalSectorCenter(2))^2 + (samples_y0(l,3)-sphericalSectorCenter(3))^2);
                  if distance<=max_radius_z
                     a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + samples_y0(l,3));
-                    if( (abs(samples_y0(l,1)) < a) && (abs(samples_y0(l,2)) < a) )
+                    if( (abs(samples_y0(l,1)) <= a) && (abs(samples_y0(l,2)) <= a) )
                         plot(samples_y0(l,1),samples_y0(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
                     else
                         plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
@@ -267,7 +267,7 @@ end
                 distance = sqrt( (samples_y0(l,1)-sphericalSectorNegativeCenter(1))^2 + (samples_y0(l,2)-sphericalSectorNegativeCenter(2))^2 + (samples_y0(l,3)-sphericalSectorNegativeCenter(3))^2);
                 if distance<=max_radius_z_neg
                     a = tan(APERTURE_RAD/2) * (CONE_HEIGHT_AT_OFFSET + abs(samples_y0(l,3)));
-                    if( (abs(samples_y0(l,1)) < a) && (abs(samples_y0(l,2)) < a) )
+                    if( (abs(samples_y0(l,1)) <= a) && (abs(samples_y0(l,2)) <= a) )
                         plot(samples_y0(l,1),samples_y0(l,3),'og','MarkerSize',5,'MarkerFaceColor','green');
                     else
                         plot(samples_y0(l,1),samples_y0(l,3),'xr','MarkerSize',5);
