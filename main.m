@@ -36,8 +36,8 @@ WaistInertiaFwdKin(wtheta,htheta(1:3), 1);
 
 hold on;
 [T_Ro0_r, T_0n_r, J_r, G_sL8_r, G_sL10_r] = WaistRightArmFwdKin(wtheta,ratheta, 1);
-%ppsPlot_rightForearm_func(fig,G_sL8_r);
-%ppsPlot_rightPalm_func(fig,G_sL10_r);
+ppsPlot_rightForearm_func(fig,G_sL8_r);
+ppsPlot_rightPalm_func(fig,G_sL10_r);
 
 hold on;
 [T_Ro0_l, T_0n_l, J_l, G_sL8_l, G_sL10_l] = WaistLeftArmFwdKin(wtheta,latheta, 1);
