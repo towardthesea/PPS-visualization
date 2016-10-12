@@ -40,70 +40,70 @@ for j=1:size(triangle_centers_CAD_lowerPatches_assemblyFoR,1)
 end
 
 %%
-
-f21 = figure(21);
-clf(f21);
-title('Positions of foreram taxels with their IDs - lower patch (in 1st wrist FoR - FoR_8)');
-hold on;
-
-for i=1:192
-    if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
-        plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
-        if (mod(i-3,12)==0)
-            text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
-        end
-    end
-end
-h = quiver3(0 ,0, 0,0.02,0,0);
-set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
-text(0.01,0,0,'x');
-h2 = quiver3(0,0,0, 0,0.02,0);
-set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
-text(0,0.01,0,'y');
-h3 = quiver3(0,0,0, 0,0,0.02);
-set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
-text(0,0,0.01,'z');
-
-xlabel('Taxel position x (m)');
-set(gca,'XDir','reverse');
-ylabel('Taxel position y (m)');
-zlabel('Taxel position z (m)');
-set(gca,'ZDir','reverse');
-axis equal;
-hold off;
-% print(f21,'-dpdf','-bestfit','lower-patch.pdf')
-
-
-%%
-f31 = figure(31);
-clf(f31);
-title('Positions of foreram taxels with their IDs - upper patch (in 1st wrist FoR - FoR_8)');
-hold on;
-
-for i=193:M
-    if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
-        plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
-        if (mod(i-3,12)==0)
-            text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
-        end
-    end
-end
- h = quiver3(0 ,0, 0,0.02,0,0);
- set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
- text(0.01,0,0,'x');
- h2 = quiver3(0,0,0, 0,0.02,0);
- set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
- text(0,0.01,0,'y');
- h3 = quiver3(0,0,0, 0,0,0.02);
- set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
- text(0,0,0.01,'z');
-
-xlabel('Taxel position x (m)');
-set(gca,'XDir','reverse');
-ylabel('Taxel position y (m)');
-zlabel('Taxel position z (m)');
-set(gca,'ZDir','reverse');
-axis equal;
-hold off;
-
-% print(f31,'-dpdf','-bestfit','upper-patch.pdf')
+% 
+% f21 = figure(21);
+% clf(f21);
+% title('Positions of foreram taxels with their IDs - lower patch (in 1st wrist FoR - FoR_8)');
+% hold on;
+% 
+% for i=1:192
+%     if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
+%         plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
+%         if (mod(i-3,12)==0)
+%             text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
+%         end
+%     end
+% end
+% h = quiver3(0 ,0, 0,0.02,0,0);
+% set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
+% text(0.01,0,0,'x');
+% h2 = quiver3(0,0,0, 0,0.02,0);
+% set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+% text(0,0.01,0,'y');
+% h3 = quiver3(0,0,0, 0,0,0.02);
+% set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+% text(0,0,0.01,'z');
+% 
+% xlabel('Taxel position x (m)');
+% set(gca,'XDir','reverse');
+% ylabel('Taxel position y (m)');
+% zlabel('Taxel position z (m)');
+% set(gca,'ZDir','reverse');
+% axis equal;
+% hold off;
+% % print(f21,'-dpdf','-bestfit','lower-patch.pdf')
+% 
+% 
+% %%
+% f31 = figure(31);
+% clf(f31);
+% title('Positions of foreram taxels with their IDs - upper patch (in 1st wrist FoR - FoR_8)');
+% hold on;
+% 
+% for i=193:M
+%     if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
+%         plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
+%         if (mod(i-3,12)==0)
+%             text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
+%         end
+%     end
+% end
+%  h = quiver3(0 ,0, 0,0.02,0,0);
+%  set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
+%  text(0.01,0,0,'x');
+%  h2 = quiver3(0,0,0, 0,0.02,0);
+%  set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+%  text(0,0.01,0,'y');
+%  h3 = quiver3(0,0,0, 0,0,0.02);
+%  set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+%  text(0,0,0.01,'z');
+% 
+% xlabel('Taxel position x (m)');
+% set(gca,'XDir','reverse');
+% ylabel('Taxel position y (m)');
+% zlabel('Taxel position z (m)');
+% set(gca,'ZDir','reverse');
+% axis equal;
+% hold off;
+% 
+% % print(f31,'-dpdf','-bestfit','upper-patch.pdf')

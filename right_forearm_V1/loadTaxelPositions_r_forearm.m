@@ -15,28 +15,28 @@ taxel_pos = right_forearm_taxel_pos_mesh;
 
 % Plot positions of calibrated taxels - Andrea
 
-f41 = figure(41);
-clf(f41);
-title('Positions of taxels with their IDs (in 1st wrist FoR - FoR_8)');
-hold on;
-
-for i=1:M
-    if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
-       plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
-%        text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1)); % taxel ID = row nr. -1
-        if (mod(i-3,12)==0)
-            text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
-        end
-    end
-end
- h = quiver3(0 ,0, 0,0.02,0,0);
- set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
- text(0.01,0,0,'x');
- h2 = quiver3(0,0,0, 0,0.02,0);
- set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
- text(0,0.01,0,'y');
- h3 = quiver3(0,0,0, 0,0,0.02);
- set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
- text(0,0,0.01,'z');
- grid on;
+% f41 = figure(41);
+% clf(f41);
+% title('Positions of taxels with their IDs (in 1st wrist FoR - FoR_8)');
+% hold on;
+% 
+% for i=1:M
+%     if (nnz(taxel_pos(i,:)) > 1) % it's not an all-zero row
+%        plot3(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),'xb');
+% %        text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1)); % taxel ID = row nr. -1
+%         if (mod(i-3,12)==0)
+%             text(taxel_pos(i,1),taxel_pos(i,2),taxel_pos(i,3),int2str(i-1),'Color','r'); 
+%         end
+%     end
+% end
+%  h = quiver3(0 ,0, 0,0.02,0,0);
+%  set(h, 'Color', 'r', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on');
+%  text(0.01,0,0,'x');
+%  h2 = quiver3(0,0,0, 0,0.02,0);
+%  set(h2, 'Color', 'g', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+%  text(0,0.01,0,'y');
+%  h3 = quiver3(0,0,0, 0,0,0.02);
+%  set(h3, 'Color', 'b', 'LineWidth', 2, 'MaxHeadSize', 4, 'ShowArrowHead', 'on')
+%  text(0,0,0.01,'z');
+%  grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
