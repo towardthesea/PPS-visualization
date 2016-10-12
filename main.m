@@ -36,8 +36,8 @@ WaistInertiaFwdKin(wtheta,htheta(1:3), 1);
 
 hold on;
 [T_Ro0_r, T_0n_r, J_r, G_sL8_r, G_sL10_r] = WaistRightArmFwdKin(wtheta,ratheta, 1);
-ppsPlot_rightForearm_func(fig,G_sL8_r);
-ppsPlot_rightPalm_func(fig,G_sL10_r);
+%ppsPlot_rightForearm_func(fig,G_sL8_r);
+%ppsPlot_rightPalm_func(fig,G_sL10_r);
 
 hold on;
 [T_Ro0_l, T_0n_l, J_l, G_sL8_l, G_sL10_l] = WaistLeftArmFwdKin(wtheta,latheta, 1);
@@ -59,7 +59,7 @@ set(cbh,'YDir','reverse');
 set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
 xlabel('x(m)','FontSize',14);    ylabel('y(m)','FontSize',14);    zlabel('z(m)','FontSize',14);
-set(gcf, 'Position', get(0, 'Screensize'));
+%set(gcf, 'Position', get(0, 'Screensize'));
 
 %filename = sprintf('upperbodyPPS.jpg');
 %print(fig, '-djpeg',filename);
