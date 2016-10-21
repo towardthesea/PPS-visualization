@@ -25,12 +25,23 @@ latheta = [ -25.8  60.0     0.0     50    0.0   0.0  40.0]*pi/180;
 rltheta = [0, 0, 0, 0, 0, 0]*pi/180;
 lltheta = [0, 0, 0, 0, 0, 0]*pi/180;
 
+prompt = 'Export PPS to files (Y/N)?\n';
+export2files = input(prompt,'s');
+EXPORT_TO_FILES = 0;
+if (export2files == 'Y' || export2files == 'y')
+    EXPORT_TO_FILES = 1;
+    fprintf('Export PPS to files\n');
+else
+    fprintf('Dont export PPS to files\n');
+end
+    
+
 % cd WaistHeadFwdKin;
 fig = figure(1);
 
 hold on;
 WaistHeadFwdKin(wtheta,htheta, 1);
-% figure
+
 hold on;
 WaistInertiaFwdKin(wtheta,htheta(1:3), 1);
 
@@ -59,9 +70,11 @@ set(cbh,'YDir','reverse');
 set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
 xlabel('x(m)','FontSize',14);    ylabel('y(m)','FontSize',14);    zlabel('z(m)','FontSize',14);
-%set(gcf, 'Position', get(0, 'Screensize'));
 
-%filename = sprintf('upperbodyPPS.jpg');
-%print(fig, '-djpeg',filename);
-% filename = sprintf('upperbodyPPS.pdf');
-% print(fig, '-dpdf', '-bestfit',filename);
+if (EXPORT_TO_FILES)
+    set(gcf, 'Position', get(0, 'Screensize'));
+    filename = sprintf('upperbodyPPS.jpg');
+    print(fig, '-djpeg',filename);
+    filename = sprintf('upperbodyPPS.pdf');
+    print(fig, '-dpdf', '-bestfit',filename);
+end

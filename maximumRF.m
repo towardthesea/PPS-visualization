@@ -7,8 +7,8 @@
 clear;
 
 PLOT_NEGATIVE_RF = true;
-PLOT_PROJECTIONS = true;
-TEST_INSIDE_RF = true;
+PLOT_PROJECTIONS = false;
+TEST_INSIDE_RF = false;
 SAVE_FIGS = false;
 
 Z_MAX = 0.2; % max extent of RF in z (normal to taxel), meters
@@ -167,7 +167,7 @@ else
 end
 axis equal;
 
-
+%%
 if TEST_INSIDE_RF
     samples = [];
     samples_x0 = [];
