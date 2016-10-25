@@ -82,11 +82,60 @@ if ~I(1)
     r_forearm = cell2mat(raw(:, columnIndices(1)));
 end
 
+%% Check the RF range
+startRow = 5;
+endRow = 5;
+formatSpec = '%s%s%s%[^\n\r]';
+fileID = fopen(filename,'r');
+dataRF = textscan(fileID, formatSpec, endRow-startRow+1, 'Delimiter', delimiter, 'MultipleDelimsAsOne', true, 'HeaderLines', startRow-1, 'ReturnOnError', false);
+fclose(fileID);
+RF = repmat({''},length(dataRF{1}),length(dataRF)-1);
+for col=1:length(dataRF)-1
+    RF(1:length(dataRF{col}),col) = dataRF{col};
+end
+numericData = NaN(size(dataRF{1},1),size(dataRF,2));
+
+for col=[1,2,3]
+    % Converts strings in the input cell array to numbers. Replaced non-numeric
+    % strings with NaN.
+    rawRF = dataRF{col};
+    for row=1:size(rawRF, 1);
+        % Create a regular expression to detect and remove non-numeric prefixes and
+        % suffixes.
+        regexstr = '(?<prefix>.*?)(?<numbers>([-]*(\d+[\,]*)+[\.]{0,1}\d*[eEdD]{0,1}[-+]*\d*[i]{0,1})|([-]*(\d+[\,]*)*[\.]{1,1}\d+[eEdD]{0,1}[-+]*\d*[i]{0,1}))(?<suffix>.*)';
+        try
+            result = regexp(rawRF{row}, regexstr, 'names');
+            numbers = result.numbers;
+            
+            % Detected commas in non-thousand locations.
+            invalidThousandsSeparator = false;
+            if any(numbers==',');
+                thousandsRegExp = '^\d+?(\,\d{3})*\.{0,1}\d*$';
+                if isempty(regexp(numbers, thousandsRegExp, 'once'));
+                    numbers = NaN;
+                    invalidThousandsSeparator = true;
+                end
+            end
+            % Convert numeric strings to numbers.
+            if ~invalidThousandsSeparator;
+                numbers = textscan(strrep(numbers, ',', ''), '%f');
+                numericData(row, col) = numbers{1};
+                RF{row, col} = numbers{1};
+            end
+        catch me
+        end
+    end
+end
+R = cellfun(@(x) ~isnumeric(x) && ~islogical(x),RF); % Find non-numeric cells
+RF(R) = {NaN}; % Replace non-numeric cells
+RFmin = cell2mat(RF(:, 2));
+RFmax = cell2mat(RF(:, 3));
+
 %%
 numPts = 20;
-d = .3/numPts;
-D = -.1:d:.2-d;
-xi = -.1:d/10:.2-d;
+d = (RFmax-RFmin)/numPts;
+D = RFmin+d:d:RFmax;
+xi = RFmin+d:d/10:RFmax;
 j=1;
 for i=1:length(r_forearm)
     values(i,1:length(raw)-1) = cell2mat(raw(i,2:length(raw)));
@@ -115,8 +164,14 @@ matT=  [1 0 0 0;
         0 0 1 0;
         0 0 0 1];
 
+newRF = 1;  %Choose the new Receptive Field model by default
+
 if (~isempty(varargin))
-    if (length(varargin)>=2)
+    if (length(varargin)>=3)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+    elseif (length(varargin)>=2)
         fig = varargin{1};
         matT = varargin{2};  
     elseif (length(varargin)>=1)
@@ -151,13 +206,17 @@ for i=1:length(r_forearm)
     if (any(f(i,:)~=0))
         for j=1:M
             if (r_forearm(i)==j)
-                h = hist_map3d([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5)*x(70:end),-f(i,70:end));
-                % -sign(j-192.5) is to differentiate between lower and
-                % upper portion of forearm (from taxelID 193, the other
-                % part starts) - different orientation
-                % x(70:end) - to plot only the positive part of RF -
-                % dependent on the number of bins 
-                % revertign the signs for the heatmap -f(i,70:end)                
+                if (newRF)
+                    h = maximumRF_func([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5),-f(i,59:end),[RFmin RFmax]);
+                else
+                    h = hist_map3d([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5)*x(59:end),-f(i,59:end));
+                    % -sign(j-192.5) is to differentiate between lower and
+                    % upper portion of forearm (from taxelID 193, the other
+                    % part starts) - different orientation
+                    % x(59:end) - to plot only the positive part of RF -
+                    % dependent on the number of bins 
+                    % revertign the signs for the heatmap -f(i,59:end)     
+                end
                 
                 v1 = [taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)-sign(j-192.5)*.05];
                 vz = [0 0 -sign(j-192.5)*.05];

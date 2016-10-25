@@ -41,17 +41,23 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
     size(bX);
     size(bC);
 
-    plotFigure =1;
+    plotFigure = 1;
+    RF = [-0.1 0.2];
     if (~isempty(varargin))
-        plotFigure = varargin{1};
+        if (length(varargin)>=2)
+            plotFigure = varargin{1};
+            RF = varargin{2};
+        elseif (length(varargin)>=1)
+            plotFigure = varargin{1};
+        end
     end
     if (plotFigure)
         hold on;
         bar(bX,bC);
         title(titleStr);
-    %     plot(x,res,'LineWidth',2,'color',[1 0 1]);
         plot(x,res,'LineWidth',2,'color',color);
-        set(gca,'YTick',[0,1,2,3],'XTick',[-0.1, -0.05, 0, 0.05, 0.1, 0.15, 0.2],'FontSize',18);
+        xtick = RF(1):0.05:RF(2);
+        set(gca,'YTick',[0,1,2,3],'XTick',xtick,'FontSize',18);
         xlabel('D[m]','FontSize',30,'FontWeight','bold');
         axis([range(1)-.01 range(end)+.01 0 1]);
         hold off;

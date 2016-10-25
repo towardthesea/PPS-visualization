@@ -25,7 +25,7 @@ latheta = [ -25.8  60.0     0.0     50    0.0   0.0  40.0]*pi/180;
 rltheta = [0, 0, 0, 0, 0, 0]*pi/180;
 lltheta = [0, 0, 0, 0, 0, 0]*pi/180;
 
-prompt = 'Export PPS to files (Y/N)?\n';
+prompt = 'Export PPS to files (Y/N)? \n';
 export2files = input(prompt,'s');
 EXPORT_TO_FILES = 0;
 if (export2files == 'Y' || export2files == 'y')
@@ -47,29 +47,33 @@ WaistInertiaFwdKin(wtheta,htheta(1:3), 1);
 
 hold on;
 [T_Ro0_r, T_0n_r, J_r, G_sL8_r, G_sL10_r] = WaistRightArmFwdKin(wtheta,ratheta, 1);
-ppsPlot_rightForearm_func(fig,G_sL8_r);
-ppsPlot_rightPalm_func(fig,G_sL10_r);
+ppsPlot_rightForearm_func(fig,G_sL8_r,1);
+% ppsPlot_rightPalm_func(fig,G_sL10_r,1);
 
 hold on;
 [T_Ro0_l, T_0n_l, J_l, G_sL8_l, G_sL10_l] = WaistLeftArmFwdKin(wtheta,latheta, 1);
-ppsPlot_leftForearm_func(fig,G_sL8_l);
-ppsPlot_leftPalm_func(fig,G_sL10_l);
+ppsPlot_leftForearm_func(fig,G_sL8_l,1);
+% ppsPlot_leftPalm_func(fig,G_sL10_l,1);
 
+hold off;
 colormap(fig,autumn);
 
 title('PPS visualization for iCub upper body');
 xlim([-0.6 0.2]);
-ylim([-0.5 0.5]);
+ylim([-0.6 0.6]);
 zlim([-.3 .5]);
 view(3);
 caxis([-1 0]);
 
 cbh=colorbar;
 set(cbh,'YTick',-1:.1:0);
-set(cbh,'YDir','reverse');
+% set(cbh,'YDir','reverse');
 set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
-xlabel('x(m)','FontSize',14);    ylabel('y(m)','FontSize',14);    zlabel('z(m)','FontSize',14);
+
+xlabel('x(m)','FontSize',14);    
+ylabel('y(m)','FontSize',14);    
+zlabel('z(m)','FontSize',14);
 
 if (EXPORT_TO_FILES)
     set(gcf, 'Position', get(0, 'Screensize'));
