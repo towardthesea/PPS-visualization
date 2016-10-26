@@ -56,8 +56,8 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
         bar(bX,bC);
         title(titleStr);
         plot(x,res,'LineWidth',2,'color',color);
-        xtick = RF(1):0.05:RF(2);
-        set(gca,'YTick',[0,1,2,3],'XTick',xtick,'FontSize',18);
+        xtick = [RF(1):0.1:0,0:0.1:RF(2)];
+        set(gca,'YTick',[0:0.2:1],'XTick',xtick,'FontSize',18);
         xlabel('D[m]','FontSize',30,'FontWeight','bold');
         axis([range(1)-.01 range(end)+.01 0 1]);
         hold off;

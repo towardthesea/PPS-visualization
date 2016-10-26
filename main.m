@@ -47,13 +47,20 @@ WaistInertiaFwdKin(wtheta,htheta(1:3), 1);
 
 hold on;
 [T_Ro0_r, T_0n_r, J_r, G_sL8_r, G_sL10_r] = WaistRightArmFwdKin(wtheta,ratheta, 1);
-ppsPlot_rightForearm_func(fig,G_sL8_r,1);
-% ppsPlot_rightPalm_func(fig,G_sL10_r,1);
+
+% parameters for following plot functions: <ppsPlot_bodypart_func(...)>
+% param1: fig - figure name to plot on
+% param2: matT - RoF of the Receptive Field (RF)
+% param3: newRF - boolean to choose the new/old type of RF, 1 for new
+% param4: thrRF - threshold for the RF, 0 for whole, 1 for nothing
+
+% ppsPlot_rightForearm_func(fig,G_sL8_r,1,0.0);
+ppsPlot_rightPalm_func(fig,G_sL10_r,1,0.9);
 
 hold on;
 [T_Ro0_l, T_0n_l, J_l, G_sL8_l, G_sL10_l] = WaistLeftArmFwdKin(wtheta,latheta, 1);
-ppsPlot_leftForearm_func(fig,G_sL8_l,1);
-% ppsPlot_leftPalm_func(fig,G_sL10_l,1);
+% ppsPlot_leftForearm_func(fig,G_sL8_l,1,0.9);
+ppsPlot_leftPalm_func(fig,G_sL10_l,1,0.9);
 
 hold off;
 colormap(fig,autumn);
@@ -62,7 +69,7 @@ title('PPS visualization for iCub upper body');
 xlim([-0.6 0.2]);
 ylim([-0.6 0.6]);
 zlim([-.3 .5]);
-view(3);
+view(2);
 caxis([-1 0]);
 
 cbh=colorbar;
@@ -77,8 +84,17 @@ zlabel('z(m)','FontSize',14);
 
 if (EXPORT_TO_FILES)
     set(gcf, 'Position', get(0, 'Screensize'));
-    filename = sprintf('upperbodyPPS.jpg');
+    filename = sprintf('upperbodyPPS_view2.jpg');
     print(fig, '-djpeg',filename);
-    filename = sprintf('upperbodyPPS.pdf');
-    print(fig, '-dpdf', '-bestfit',filename);
+%     filename = sprintf('upperbodyPPS_view2.pdf');
+%     print(fig, '-dpdf', '-bestfit',filename);
+
+
+    view ([-pi/2 0 0])
+
+    set(gcf, 'Position', get(0, 'Screensize'));
+    filename = sprintf('upperbodyPPS_viewfront.jpg');
+    print(fig, '-djpeg',filename);
+%     filename = sprintf('upperbodyPPS_viewfront.pdf');
+%     print(fig, '-dpdf', '-bestfit',filename);
 end

@@ -10,7 +10,7 @@ printToFile = 0;
 
 %% Initialize variables.
 filename = 'taxels1D_learned_r_hand.ini'
-% filename = 'taxels1D_45cmRF_out.ini'
+filename = 'taxels1D_45cmRF_out.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -168,9 +168,15 @@ matT=  [1 0 0 0;
         0 0 0 1];
 
 newRF = 1;  %Choose the new Receptive Field model by default
+thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
 
 if (~isempty(varargin))
-    if (length(varargin)>=3)
+    if (length(varargin)>=4)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+    elseif (length(varargin)>=3)
         fig = varargin{1};
         matT = varargin{2};  
         newRF = varargin{3};
@@ -212,7 +218,7 @@ for i=1:length(r_hand)
         for j=1:M
             if (r_hand(i)==j-1+TAXEL_ID_OFFSET_PALM_TO_HAND)
                 if (newRF)
-                    h = maximumRF_func([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],1,-f(i,59:end),[RFmin RFmax]);
+                    h = maximumRF_func([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],1,-f(i,59:end),[RFmin RFmax],thrRF);
                 else
                     h = hist_map3d([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],...
                         x(59:end),-f(i,59:end));

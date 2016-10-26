@@ -12,22 +12,30 @@ function [h] = maximumRF_func( pos, range, parzenFunc,varargin )
 % locates (upper or lower)
 % parzenFunc: value of the parzen estimation wrt the distance to taxel
 res_angle = 100;
-transparent = 1;
+
 PLOT_NEGATIVE_RF = false;
 % TODO
 % Add PLOT_NEGATIVE_RF as input
 RF = [-.1 .2];
+thr = 0.0;
+res = 20; % resolution
+transparent = 1;
 
 if (~isempty(varargin))
-    if (length(varargin)>=1)
+    if(length(varargin)>=4)
         RF = varargin{1};
-    elseif(length(varargin)>=2)
-        RF = varargin{1};
-        res = varargin{2};
+        thr = varargin{2};
+        res = varargin{3};
+        transparent =varargin{4};
     elseif(length(varargin)>=3)
         RF = varargin{1};
-        res = varargin{2};
-        transparent = varargin{3};
+        thr = varargin{2};
+        res = varargin{3};
+    elseif(length(varargin)>=2)
+        RF = varargin{1};
+        thr = varargin{2};
+    elseif (length(varargin)>=1)
+        RF = varargin{1};
     end
 end
 
@@ -38,10 +46,6 @@ Z_NEGATIVE_MAX = RF(1);
 
 APERTURE_DEG = 100; %the spherical sector / cone opening angle or aperture
 APERTURE_RAD = (APERTURE_DEG / 360) * 2 * pi;
-
-res = 20; % resolution
-
-azimuth = linspace(0,2*pi,res_angle);
 
 DESIRED_RADIUS_XY_AT_APEX = 0.07; % 0.05; % meters; we don't want the spherical sector to start at the apex, where it would have 0 volume
 %but we want to truncate it such that it starts at the height with this radius;
@@ -54,6 +58,7 @@ SPHERE_RADIUS_AT_OFFSET = DESIRED_RADIUS_XY_AT_APEX / sin(APERTURE_RAD/2);    % 
 
 %% SPHERICAL SECTOR
 %polar_angle = linspace(-APERTURE_RAD/2,APERTURE_RAD/2,res); 
+azimuth = linspace(0,2*pi,res_angle);
 polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2,res_angle); % in matlab: elevation is angular displacement in radians from the x-y plane
 % polar_angle = linspace(pi/2-APERTURE_RAD/2,pi/2+APERTURE_RAD/2,res); % in matlab: elevation is angular displacement in radians from the x-y plane
 % also called co-latitude, zenith angle, normal angle, or inclination angle.
@@ -64,13 +69,27 @@ radius_z = linspace(SPHERE_RADIUS_AT_OFFSET,max_radius_z,res);
 
 delta = floor(length(parzenFunc)/length(radius_z));
 
+
+threshold = thr;
+idxLowerThrd = find(abs(parzenFunc)<=threshold);
+parzenFunc(idxLowerThrd) = 0;
+
+
 for i=1:length(radius_z)
     [xs,ys,zs] = sph2cart(theta,phi,radius_z(i));
     zs = zs - CONE_HEIGHT_AT_OFFSET;
     if (delta*i<length(parzenFunc))
+        
         b = parzenFunc(delta*i)*ones(length(theta));
         h(i) = mesh(xs+pos(1),ys+pos(2),(range)*zs+pos(3),b);
-        set(h(i), 'FaceAlpha',transparent); 
+
+        if (parzenFunc(delta*i)==0)
+            transparent = 0;
+            set(h(i),'EdgeColor','none','FaceAlpha',transparent); 
+        else        
+            set(h(i),'FaceAlpha',transparent); 
+        end
+
     end
 end
 
@@ -82,7 +101,7 @@ if PLOT_NEGATIVE_RF
         zs = zs - CONE_HEIGHT_AT_OFFSET;
         zs = zs * -1;
         h(i) = mesh(xs+pos(1),ys+pos(2),zs+pos(3));
-        set(h(i), 'FaceAlpha',transparent); %'EdgeAlpha', 0);
+        set(h(i), 'EdgeColor','none','LineStyle','none', 'FaceAlpha',transparent); %'EdgeAlpha', 0);
     end
 end
 colorbar

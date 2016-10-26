@@ -167,9 +167,15 @@ matT=  [1 0 0 0;
         0 0 0 1];
     
 newRF = 1;  %Choose the new Receptive Field model by default
+thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
 
 if (~isempty(varargin))
-    if (length(varargin)>=3)
+    if (length(varargin)>=4)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+    elseif (length(varargin)>=3)
         fig = varargin{1};
         matT = varargin{2};  
         newRF = varargin{3};
@@ -209,7 +215,7 @@ for i=1:length(l_forearm)
         for j=1:M
             if (l_forearm(i)==j)
                 if (newRF)
-                    h = maximumRF_func([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5),-f(i,59:end),[RFmin RFmax]);
+                    h = maximumRF_func([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5),-f(i,59:end),[RFmin RFmax],thrRF);
                 else
                     h = hist_map3d([taxel_pos(j,1),taxel_pos(j,2),taxel_pos(j,3)],-sign(j-192.5)*x(59:end),-f(i,59:end));
                     % -sign(j-192.5) is to differentiate between lower and
