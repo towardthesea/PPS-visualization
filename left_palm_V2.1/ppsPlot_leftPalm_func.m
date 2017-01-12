@@ -10,6 +10,8 @@ printToFile = 0;
 
 %% Initialize variables.
 filename = 'taxels1D_learned_l_hand.ini'
+filename = 'taxels1D_45cmRF_skinV2_learned_l_hand.ini'
+filename = 'taxels1D_45cmRF_skinV2_perfect_l_hand.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -149,7 +151,7 @@ for i=1:length(l_hand)
     %===================================
     if (any(p(i,:)~=0))
         figureTitle = sprintf('Taxel %ith',l_hand(i));
-        [f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,0);
+        [f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,0,[RFmin RFmax]);
     end
 end
 
