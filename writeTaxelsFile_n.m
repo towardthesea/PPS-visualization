@@ -42,7 +42,7 @@ function [out]= writeTaxelsFile_n(file2Write, name, size, nTaxels, taxels)
         for k = 1:length(pos)-1
             fprintf(fid,'%d ',pos(k));
         end
-        fprintf(fid,'%d)(',pos(k+1));
+        fprintf(fid,'%d) (',pos(k+1));
         for k = 1:length(neg)-1
             fprintf(fid,'%d ',neg(k));
         end
