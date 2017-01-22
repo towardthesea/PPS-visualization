@@ -8,23 +8,6 @@ clc;
 clear all
 close all
 
-pos = [400 320 240 100 80 60 50 40 30 20 10 8 6 5 4 3 2 1 1 1]
-P   = [0.5 1 0.16:-0.01:0.01 0.005 0.001]
-
-neg = zeros(1,20);
-for i=1:20
-    neg(i) = perfectTaxel(pos(i),P(i));
-    if (rem(neg(i)*10,10)>=5)
-        neg(i) = ceil(neg(i));
-    else
-        neg(i) = floor(neg(i));
-    end
-    %sprintf('%3.0',neg(i))
-end
-
-POS = sprintf('%d ',pos)
-NEG = sprintf('%d ',neg)
-
 %% Initialize variables.
 filename = 'taxels1D_45cmRF_skinV2_empty.ini'
 
@@ -132,7 +115,7 @@ end
 % end
 % fclose(fid);    
 
-writeTaxelsFile('taxels1D_45cmRF_skinV2_perfect_l_hand.ini', 'l_hand', 192, 5, l_hand);
+writeTaxelsFile_n('taxels1D_45cmRF_skinV2_perfect_l_hand.ini', 'l_hand', 192, 5, l_hand);
 
 
 clearvars fid startRow dataArray ans raw col numericData rawData row regexstr result numbers invalidThousandsSeparator thousandsRegExp me;
@@ -196,7 +179,7 @@ if ~I(1)
     l_forearm = cell2mat(raw(:, columnIndices(1)))
 end
 
-writeTaxelsFile('taxels1D_45cmRF_skinV2_perfect_l_forearm.ini', 'l_forearm', 384, 24, l_forearm);
+writeTaxelsFile_n('taxels1D_45cmRF_skinV2_perfect_l_forearm.ini', 'l_forearm', 384, 24, l_forearm);
 %%
 
 
@@ -261,7 +244,7 @@ if ~I(1)
     r_hand = cell2mat(raw(:, columnIndices(1)))
 end
 
-writeTaxelsFile('taxels1D_45cmRF_skinV2_perfect_r_hand.ini', 'r_hand', 192, 5, r_hand);
+writeTaxelsFile_n('taxels1D_45cmRF_skinV2_perfect_r_hand.ini', 'r_hand', 192, 5, r_hand);
 %%
 
 
@@ -326,6 +309,6 @@ if ~I(1)
     r_forearm = cell2mat(raw(:, columnIndices(1)))
 end
 
-writeTaxelsFile('taxels1D_45cmRF_skinV2_perfect_r_forearm.ini', 'r_forearm', 384, 24, r_forearm);
+writeTaxelsFile_n('taxels1D_45cmRF_skinV2_perfect_r_forearm.ini', 'r_forearm', 384, 24, r_forearm);
 %%
 
