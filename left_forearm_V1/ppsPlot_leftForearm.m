@@ -8,12 +8,12 @@ clc;
 clear all
 close all
 
-printToFile = 1;
+printToFile = 0;
 
 %% Initialize variables.
-filename = 'taxels1D_learned_l_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_learned_l_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
+%filename = 'taxels1D_learned_l_forearm.ini'
+%filename = 'taxels1D_45cmRF_skinV2_learned_l_forearm.ini'
+filename = '../handcraftedPPSrepresentation/taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -178,7 +178,8 @@ if (printToFile)
     for i=1:length(fig)
         if (isgraphics(fig(i)))
             filename = sprintf('figure%i.pdf',j);
-            print(fig(i), '-dpdf', '-bestfit',filename);
+            %print(fig(i), '-dpdf', '-bestfit',filename);
+            print(fig(i), '-dpdf', filename);
             j=j+1;
         end
 

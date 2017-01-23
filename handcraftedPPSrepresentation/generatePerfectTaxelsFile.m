@@ -9,7 +9,7 @@ clear all
 close all
 
 %% Initialize variables.
-filename = 'taxels1D_45cmRF_skinV2_empty.ini'
+filename = '../taxels1D_45cmRF_skinV2_empty.ini'
 
 delimiter = {' ','(',')'};
 startRow = 8;

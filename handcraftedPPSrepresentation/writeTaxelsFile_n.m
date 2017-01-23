@@ -1,20 +1,20 @@
 function [out]= writeTaxelsFile_n(file2Write, name, size, nTaxels, taxels)
 
-%     pos = [400 320 240 100 80 60 50 40 30 20 10 8 6 5 4 3 2 1 1 1]
+    pos = [480 555 480 160 80 60 50 40 35 25 15 10 6 3 1 0 0 0 0 0]; % sum is 2000, just like for the negative ones
     neg = 100*ones(1,20);
-    P   = [0.7 0.99 0.16:-0.01:0.01 0.005 0.001]
+    %P   = [0.7 0.99 0.16:-0.01:0.01 0.005 0.001]
     
 %     neg = zeros(1,20);
-    pos = zeros(1,20);
-    for i=1:20
-        pos(i) = perfectTaxel_n(neg(i),P(i));
-        if (rem(pos(i)*10,10)>=5)
-            pos(i) = ceil(pos(i));
-        else
-            pos(i) = floor(pos(i));
-        end
-        %sprintf('%3.0',neg(i))
-    end
+%     pos = zeros(1,20);
+%     for i=1:20
+%         pos(i) = perfectTaxel_n(neg(i),P(i));
+%         if (rem(pos(i)*10,10)>=5)
+%             pos(i) = ceil(pos(i));
+%         else
+%             pos(i) = floor(pos(i));
+%         end
+%         %sprintf('%3.0',neg(i))
+%     end
 
     POS = sprintf('%d ',pos)
     NEG = sprintf('%d ',neg)                                
