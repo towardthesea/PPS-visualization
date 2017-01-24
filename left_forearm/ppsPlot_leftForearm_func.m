@@ -167,6 +167,7 @@ matT=  [1 0 0 0;
     
 newRF = 1;  %Choose the new Receptive Field model by default
 thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
+SKIN_VERSION = 2;
 
 if (~isempty(varargin))
     if (length(varargin)>=5)
