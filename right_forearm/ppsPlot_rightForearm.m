@@ -8,12 +8,16 @@ clc;
 clear all
 close all
 
+addpath('../');
+
+SKIN_VERSION = 2; 
+
 printToFile = 1;
 
 %% Initialize variables.
-filename = 'taxels1D_learned_r_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_learned_r_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
+%filename = 'taxels1D_learned_r_forearm.ini'
+%filename = 'taxels1D_45cmRF_skinV2_learned_r_forearm.ini'
+filename = '../ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -176,7 +180,8 @@ if (printToFile)
     for i=1:length(fig)
         if (isgraphics(fig(i)))
             filename = sprintf('figure%i.pdf',j);
-            print(fig(i), '-dpdf', '-bestfit',filename);
+            %print(fig(i), '-dpdf', filename);
+            %print(fig(i), '-dpdf', '-bestfit',filename);
             j=j+1;
         end
 
@@ -184,12 +189,24 @@ if (printToFile)
 end
 
 %% Load taxel files
-loadTaxelPositions_r_forearm;
-%% Plot whole PPS from -0.1->0.2cm
+if SKIN_VERSION == 1
+    load right_forearm_taxel_pos_mesh.mat; 
+    taxel_pos = right_forearm_taxel_pos_mesh; 
+elseif SKIN_VERSION == 2
+    load rightForearmV2.mat; 
+    taxel_pos = rforearmV2noHeader;     
+else
+    error('Unknown skin version');
+end
+[M,N] = size(taxel_pos);
+   
+pos0 = taxel_pos;
 
+
+%% Plot whole PPS
 
 figure; hold on
-title('Positions of right foreram taxels from -0.1->0.2cm (in 1st wrist FoR - FoR_8)');
+title('Positions of right foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M
@@ -241,11 +258,11 @@ set(gca,'ZDir','reverse');
 
 hold off; grid on;
 
-%% Plot whole PPS from 0->0.2cm
+%% Plot whole PPS
 
 
 figure; hold on
-title('PPS of right foreram taxels from 0->0.2cm (in 1st wrist FoR - FoR_8)');
+title('PPS of right foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M

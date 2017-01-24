@@ -11,7 +11,7 @@ printToFile = 0;
 %% Initialize variables.
 %filename = 'taxels1D_learned_r_forearm.ini'
 %filename = 'taxels1D_45cmRF_skinV2_learned_r_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
+filename = '../ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -155,10 +155,6 @@ for i=1:length(r_forearm)
         [f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,0,[RFmin RFmax]);          
     end
 end
-
-%% Load taxel files
-loadTaxelPositions_r_forearm;
-pos0_r = taxel_pos;
 
 %% Transform
 matT=  [1 0 0 0;
