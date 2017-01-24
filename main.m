@@ -10,10 +10,10 @@
 function out = main(varargin)
 
 addpath(genpath('./ICubFwdKin'));
-addpath('./left_forearm_V1');
-addpath('./left_palm_V2.1');
-addpath('./right_forearm_V1');
-addpath('./right_palm_V2.1');
+addpath('./left_forearm');
+addpath('./left_palm');
+addpath('./right_forearm');
+addpath('./right_palm');
 
 
 close all
@@ -38,10 +38,15 @@ else
 end
 
 if (~isempty(varargin))
-    if (length(varargin)>=1)
+    if (length(varargin)>=2)
         thrRF = varargin{1}
+        SKIN_VERSION = varargin{2}
+    elseif (length(varargin)>=1)
+       thrRF = varargin{1}
+       SKIN_VERSION = 2
     else
         thrRF = 0.0
+        SKIN_VERSION = 2
     end
 end  
 clear varargin
@@ -69,12 +74,11 @@ for i=1:length(thrRF)
     % param3: newRF - boolean to choose the new/old type of RF, 1 for new
     % param4: thrRF - threshold for the RF, 0 for whole, 1 for nothing
 
-    ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i));
-%     ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i));
+    ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i),SKIN_VERSION);
+    ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i),SKIN_VERSION);
 
-
-    ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i));
-%     ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i));
+    ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION);
+    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i),SKIN_VERSION);
 
     hold off;
     colormap(fig,autumn);
