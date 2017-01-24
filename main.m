@@ -9,7 +9,7 @@
 %%
 function out = main(varargin)
 
-addpath(genpath('./ICubFwdKin'));
+addpath(genpath('./ICubFwdKin/'));
 addpath('./left_forearm');
 addpath('./left_palm');
 addpath('./right_forearm');
@@ -37,19 +37,17 @@ else
     fprintf('Do not export PPS to files\n');
 end
 
-if (~isempty(varargin))
-    if (length(varargin)>=2)
-        thrRF = varargin{1}
-        SKIN_VERSION = varargin{2}
-    elseif (length(varargin)>=1)
-       thrRF = varargin{1}
-       SKIN_VERSION = 2
-    else
-        thrRF = 0.0
-        SKIN_VERSION = 2
-    end
-end  
-clear varargin
+if (length(varargin)>=2)
+    thrRF = varargin{1}
+    SKIN_VERSION = varargin{2}
+elseif (length(varargin)>=1)
+    thrRF = varargin{1}
+    SKIN_VERSION = 2
+elseif (isempty(varargin))
+    thrRF = 0.0
+    SKIN_VERSION = 2
+end
+clear varargin;
 
 % cd WaistHeadFwdKin;
 for i=1:length(thrRF)
@@ -75,10 +73,10 @@ for i=1:length(thrRF)
     % param4: thrRF - threshold for the RF, 0 for whole, 1 for nothing
 
     ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i),SKIN_VERSION);
-    ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i),SKIN_VERSION);
+    %ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i),SKIN_VERSION);
 
     ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION);
-    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i),SKIN_VERSION);
+    %ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i),SKIN_VERSION);
 
     hold off;
     colormap(fig,autumn);

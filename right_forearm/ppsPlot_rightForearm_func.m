@@ -11,7 +11,7 @@ printToFile = 0;
 %% Initialize variables.
 %filename = 'taxels1D_learned_r_forearm.ini'
 %filename = 'taxels1D_45cmRF_skinV2_learned_r_forearm.ini'
-filename = '../ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
+filename = './ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_r_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
