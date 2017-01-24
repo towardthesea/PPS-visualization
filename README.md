@@ -31,9 +31,14 @@ Please refer to:
 - https://github.com/towardthesea/PPS-visualization/blob/master/right_palm/ppsPlot_rightPalm.m
 
 # Perfect (handcrafted) PPS generation
+These scripts allow to generate (rather than learn) a handcrafted PPS .ini file - possibly a "perfect" representation.
+
 The scripts are in the `perfectPPSgenerationScripts` folder.
+
 Use this script to generate: https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/generatePerfectTaxelsFile.m
 The shape can be set for example here: https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/writeTaxelsFile_n.m
+
+Note: currently, the "mapping" section generated is not correct and has to be replaced by hand.
 
 # Receptive field formulation and visualization
 The `maximumRF.m` script contains formulation and visualization of the spherical sector that forms the RF of individual taxels.
