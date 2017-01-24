@@ -34,7 +34,7 @@ if (export2files == 'Y' || export2files == 'y')
     EXPORT_TO_FILES = 1;
     fprintf('Export PPS to files\n');
 else
-    fprintf('Dont export PPS to files\n');
+    fprintf('Do not export PPS to files\n');
 end
 
 if (~isempty(varargin))

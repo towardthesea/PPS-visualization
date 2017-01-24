@@ -8,12 +8,16 @@ clc;
 clear all
 close all
 
+addpath('../');
+
+SKIN_VERSION = 2; 
+
 printToFile = 0;
 
 %% Initialize variables.
 %filename = 'taxels1D_learned_l_forearm.ini'
 %filename = 'taxels1D_45cmRF_skinV2_learned_l_forearm.ini'
-filename = '../handcraftedPPSrepresentation/taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
+filename = '../ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -187,7 +191,17 @@ if (printToFile)
 end
 
 %% Load taxel files
-loadTaxelPositions;
+if SKIN_VERSION == 1
+    load left_forearm_taxel_pos_mesh.mat; % the no_mesh is also possible, but there are no normals, so you can't overlay the triangular modules
+    taxel_pos = left_forearm_taxel_pos_mesh; 
+elseif SKIN_VERSION == 2
+    load leftForearmV2.mat; 
+    taxel_pos = leftforearmV2noHeader;     
+else
+    error('Unknown skin version');
+end
+[M,N] = size(taxel_pos);
+   
 pos0 = taxel_pos;
 
 %% Transform
@@ -198,9 +212,9 @@ matT=  [1 0 0 0;
 
 posOrigin = matT(1:3,4)';
         
-%% Plot whole PPS from -0.1->0.2cm
+%% Plot whole PPS 
 figure; hold on
-title('Positions of left foreram taxels from -0.1->0.2cm (in 1st wrist FoR - FoR_8)');
+title('Positions of left foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M
@@ -265,11 +279,11 @@ end
 
 posOrigin = matT(1:3,4)';
 
-%% Plot whole PPS from 0->0.2cm
+%% Plot whole PPS
 
 figure;
 hold on
-title('PPS of left foreram taxels from 0->0.2cm (in 1st wrist FoR - FoR_8)');
+title('PPS of left foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M

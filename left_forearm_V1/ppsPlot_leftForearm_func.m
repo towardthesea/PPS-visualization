@@ -9,9 +9,9 @@ function hAxes = ppsPlot_leftForearm_func(varargin)
 printToFile = 0;
 
 %% Initialize variables.
-filename = 'taxels1D_learned_l_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_learned_l_forearm.ini'
-filename = 'taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
+%filename = 'taxels1D_learned_l_forearm.ini'
+%filename = 'taxels1D_45cmRF_skinV2_learned_l_forearm.ini'
+filename = '../ppsTaxelsFiles/taxels1D_45cmRF_skinV2_perfect_l_forearm.ini'
 delimiter = {' ','(',')'};
 startRow = 8;
 
@@ -158,9 +158,6 @@ for i=1:length(l_forearm)
     end
 end
 
-%% Load taxel files
-loadTaxelPositions;
-pos0_l = taxel_pos;
 
 %% Transform
 matT=  [1 0 0 0;
@@ -172,7 +169,13 @@ newRF = 1;  %Choose the new Receptive Field model by default
 thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
 
 if (~isempty(varargin))
-    if (length(varargin)>=4)
+    if (length(varargin)>=5)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+        SKIN_VERSION = varargin{5};
+    elseif (length(varargin)>=4)
         fig = varargin{1};
         matT = varargin{2};  
         newRF = varargin{3};
@@ -190,6 +193,22 @@ if (~isempty(varargin))
 else
     fig = figure;
 end
+    
+%% Load taxel files
+if SKIN_VERSION == 1
+    load left_forearm_taxel_pos_mesh.mat; % the no_mesh is also possible, but there are no normals, so you can't overlay the triangular modules
+    taxel_pos = left_forearm_taxel_pos_mesh; 
+elseif SKIN_VERSION == 2
+    load leftForearmV2.mat; 
+    taxel_pos = leftforearmV2noHeader;     
+else
+    error('Unknown skin version');
+end
+[M,N] = size(taxel_pos);
+   
+pos0 = taxel_pos;
+
+%%
 for i=1:M
     pos1(i,:) = matT(1:3,4)+matT(1:3,1:3)*taxel_pos(i,1:3)';
     pos0n(i,:)= taxel_pos(i,4:6)+taxel_pos(i,1:3);
@@ -200,9 +219,9 @@ end
 
 posOrigin = matT(1:3,4)';
         
-%% Plot whole PPS from 0->0.2m
+%% Plot whole PPS
 figure(fig); hold on
-title('PPS of left foreram taxels from 0->0.2m (in 1st wrist FoR - FoR_8)');
+title('PPS of left foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M
