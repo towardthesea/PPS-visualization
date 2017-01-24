@@ -189,8 +189,8 @@ if (~isempty(varargin))
     end
 else
     fig = figure;
-    
 end
+
 for i=1:M
     taxel_pos(i,4:6) = [0 0 -1];
     
@@ -200,12 +200,12 @@ for i=1:M
     taxel_pos(i,1:3) = pos1(i,:)';
     taxel_pos(i,4:6) = pos1n(i,:)' - pos1(i,:)';    
 end
-T = matT
+T = matT;
 posOrigin = matT(1:3,4)';
         
-%% Plot whole PPS from 0->0.2m
+%% Plot whole PPS 
 figure(fig); hold on
-title('PPS of left palm taxels from 0->0.2m (in 1st wrist FoR - FoR_{10})');
+title('PPS of left palm taxels (in 1st wrist FoR - FoR_{10})');
 colormap autumn %flag hot
 
 for i=1:M

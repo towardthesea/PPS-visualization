@@ -200,7 +200,7 @@ for i=1:M
     taxel_pos(i,1:3) = pos1(i,:)';
     taxel_pos(i,4:6) = pos1n(i,:)' - pos1(i,:)';    
 end
-T = matT
+T = matT;
 posOrigin = matT(1:3,4)';
 
 %% Plot whole PPS from 0->0.2cm

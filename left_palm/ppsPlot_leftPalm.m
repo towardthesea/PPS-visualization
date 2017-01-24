@@ -201,7 +201,7 @@ taxel_pos = taxel_positions_FoR_10/1000;    %convert to m from mm
 
 
 figure; hold on
-title('PPS of left palm taxels from -0.1->0.2cm (in 1st wrist FoR - FoR_{10})');
+title('PPS of left palm taxels (in 1st wrist FoR - FoR_{10})');
 colormap autumn %flag hot
 
 for i=1:M
@@ -240,11 +240,11 @@ set(gca,'ZDir','reverse');
 % axis equal;
 hold off; grid on;
 
-%% Plot whole PPS from 0->0.2cm
+%% Plot whole PPS 
 
 
 figure; hold on
-title('PPS of left palm taxels from 0->0.2cm (in 1st wrist FoR - FoR_{10})');
+title('PPS of left palm taxels (in 1st wrist FoR - FoR_{10})');
 colormap autumn %flag hot
 
 for i=1:M
