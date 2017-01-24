@@ -71,12 +71,13 @@ for i=1:length(thrRF)
     % param2: matT - RoF of the Receptive Field (RF)
     % param3: newRF - boolean to choose the new/old type of RF, 1 for new
     % param4: thrRF - threshold for the RF, 0 for whole, 1 for nothing
+    % param5: SKIN_VERSION - only for forearms
 
     ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i),SKIN_VERSION);
-    %ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i),SKIN_VERSION);
+    ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i));
 
     ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION);
-    %ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i),SKIN_VERSION);
+    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i));
 
     hold off;
     colormap(fig,autumn);
