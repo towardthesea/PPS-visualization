@@ -127,14 +127,14 @@ if display==1
     LinkColor1 = [1 0 0];   %RGB color of the first link
     LinkColor2 = [0 1 1];   %RGB color of the second link
     LinkColor3 = [0 0 0];   %RGB color of the third link
-    JntColor   = [.7 .7 .7];%RGB color of the joints
+    JntColor   = [.3 .3 .3];%RGB color of the joints
     CamColor   = [ 0.2 0.2 0.2];%RGB color of the joints
 
     
     jnt2 = DrawCylinder(ljnt, rjnt, G_sL0*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     hold on
     jnt3 = DrawCylinder(ljnt, rjnt, G_sL1*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
-    jnt4 = DrawCylinder(ljnt, rjnt, G_sL2*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
+    jnt4 = DrawCylinder(10*ljnt, 10*rjnt, G_sL2*[1 0 0 0; 0 1 0 0; 0 0 1 -10*ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
 
     DrawRefFrame(G_sL0,0)
     DrawRefFrame(G_sL1,1)
