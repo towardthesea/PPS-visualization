@@ -6,8 +6,7 @@ PPS in iCub is provided by this module: [peripersonal-space] (https://github.com
 
 ## Main PPS visualization
 
-Please run the command in the same folder or add the path of the folder before running  
-	[**main**](https://github.com/towardthesea/PPS-visualization/blob/master/main.m): to visualize the whole upper body PPS as shown in figure
+Please run the command in the same folder or add the path of the folder before running [**main**](https://github.com/towardthesea/PPS-visualization/blob/master/main.m) to visualize the whole upper body PPS as shown in figure
 	<img src="https://github.com/towardthesea/PPS-visualization/blob/master/misc/upperbodyPPS.jpg"/>
 
 This will visualize the PPS around all taxels of all the forearms and hands.
