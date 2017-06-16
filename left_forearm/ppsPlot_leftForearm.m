@@ -12,6 +12,8 @@ addpath('../');
 
 SKIN_VERSION = 2; 
 
+percRF = 1.0
+
 printToFile = 0;
 
 %% Initialize variables.
@@ -137,7 +139,7 @@ end
 R = cellfun(@(x) ~isnumeric(x) && ~islogical(x),RF); % Find non-numeric cells
 RF(R) = {NaN}; % Replace non-numeric cells
 RFmin = cell2mat(RF(:, 2));
-RFmax = cell2mat(RF(:, 3));
+RFmax = percRF*cell2mat(RF(:, 3));
 
 %%
 numPts = 20;

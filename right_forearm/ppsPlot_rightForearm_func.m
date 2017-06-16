@@ -8,6 +8,50 @@ function hAxes = ppsPlot_rightForearm_func(varargin)
 
 printToFile = 0;
 
+%% Transform and varargin
+matT=  [1 0 0 0;
+        0 1 0 0;
+        0 0 1 0;
+        0 0 0 1];
+
+newRF = 1;  %Choose the new Receptive Field model by default
+thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
+SKIN_VERSION = 2;
+percRF = 1.0;   % percentage of the RF
+
+if (~isempty(varargin))
+    if (length(varargin)>=6)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+        SKIN_VERSION = varargin{5};
+        percRF = varargin{6};
+    elseif (length(varargin)>=5)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+        SKIN_VERSION = varargin{5};
+    elseif (length(varargin)>=4)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+        thrRF = varargin{4};
+    elseif (length(varargin)>=3)
+        fig = varargin{1};
+        matT = varargin{2};  
+        newRF = varargin{3};
+    elseif (length(varargin)>=2)
+        fig = varargin{1};
+        matT = varargin{2};  
+    elseif (length(varargin)>=1)
+        fig = varargin{1};        
+    end
+else
+    fig = figure;  
+end
+
 %% Initialize variables.
 %filename = 'taxels1D_learned_r_forearm.ini'
 %filename = 'taxels1D_45cmRF_skinV2_learned_r_forearm.ini'
@@ -131,7 +175,7 @@ end
 R = cellfun(@(x) ~isnumeric(x) && ~islogical(x),RF); % Find non-numeric cells
 RF(R) = {NaN}; % Replace non-numeric cells
 RFmin = cell2mat(RF(:, 2));
-RFmax = cell2mat(RF(:, 3));
+RFmax = percRF*cell2mat(RF(:, 3));
 
 %%
 numPts = 20;
@@ -154,42 +198,6 @@ for i=1:length(r_forearm)
         figureTitle = sprintf('Taxel %ith',r_forearm(i));
         [f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,0,[RFmin RFmax]);          
     end
-end
-
-%% Transform
-matT=  [1 0 0 0;
-        0 1 0 0;
-        0 0 1 0;
-        0 0 0 1];
-
-newRF = 1;  %Choose the new Receptive Field model by default
-thrRF = 0.0;    % threshold of the RF: 0 for the whole, 1 for nothing
-SKIN_VERSION = 2;
-
-if (~isempty(varargin))
-    if (length(varargin)>=5)
-        fig = varargin{1};
-        matT = varargin{2};  
-        newRF = varargin{3};
-        thrRF = varargin{4};
-        SKIN_VERSION = varargin{5};
-    elseif (length(varargin)>=4)
-        fig = varargin{1};
-        matT = varargin{2};  
-        newRF = varargin{3};
-        thrRF = varargin{4};
-    elseif (length(varargin)>=3)
-        fig = varargin{1};
-        matT = varargin{2};  
-        newRF = varargin{3};
-    elseif (length(varargin)>=2)
-        fig = varargin{1};
-        matT = varargin{2};  
-    elseif (length(varargin)>=1)
-        fig = varargin{1};        
-    end
-else
-    fig = figure;  
 end
 
 %% Load taxel files

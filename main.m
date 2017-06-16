@@ -37,7 +37,13 @@ else
     fprintf('Do not export PPS to files\n');
 end
 
-if (length(varargin)>=2)
+percRF = 1.0;
+
+if (length(varargin)>=3)
+    thrRF = varargin{1}
+    SKIN_VERSION = varargin{2}
+    percRF = varargin{3}
+elseif (length(varargin)>=2)
     thrRF = varargin{1}
     SKIN_VERSION = varargin{2}
 elseif (length(varargin)>=1)
@@ -48,6 +54,14 @@ elseif (isempty(varargin))
     SKIN_VERSION = 2
 end
 clear varargin;
+
+if (length(percRF)==1)
+    percRF_left = percRF;
+    percRF_right = percRF;
+elseif(length(percRF)==2)
+    percRF_left = percRF(2);
+    percRF_right = percRF(1);
+end
 
 % cd WaistHeadFwdKin;
 for i=1:length(thrRF)
@@ -72,17 +86,20 @@ for i=1:length(thrRF)
     % param3: newRF - boolean to choose the new/old type of RF, 1 for new
     % param4: thrRF - threshold for the RF, 0 for whole, 1 for nothing
     % param5: SKIN_VERSION - only for forearms
+    % param6: percRF - percentage of RF length, 1 for whole
+    % RFmax = percRF*RFmax
 
-    ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i),SKIN_VERSION);
-    ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i));
+    ppsPlot_rightForearm_func(fig,G_sL8_r,1,thrRF(i),SKIN_VERSION, percRF_right);
+%    ppsPlot_rightPalm_func(fig,G_sL10_r,1,thrRF(i));
 
-    ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION);
-    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i));
+    ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION, percRF_left);
+%    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i));
 
     hold off;
     colormap(fig,autumn);
 
-    titleString = strcat('PPS visualization for iCub upper body with thrRF = ',num2str(thrRF(i)));
+    titleString = strcat('PPS visualization for iCub upper body with thrRF = ',num2str(thrRF(i)),...
+    ', percRF(right,left) = [',num2str(percRF_right),', ',num2str(percRF_left),']');
     title(titleString);
     xlim([-0.8 0.4]);
     ylim([-0.9 0.9]);
@@ -104,8 +121,10 @@ for i=1:length(thrRF)
         DateTimeString = datestr(now,30);   % Time format: (ISO 8601)  'yyyymmddTHHMMSS'
 
         set(gcf, 'Position', get(0, 'Screensize'));
-        filename1 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),'_viewtop.jpg')
-        filename  = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),'.fig');
+        filename1 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewtop.jpg')
+        filename  = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'.fig');
         print(fig, '-djpeg',filename1);
         saveas(fig,filename)
     %     filename = sprintf('upperbodyPPS_view2.pdf');
@@ -114,7 +133,8 @@ for i=1:length(thrRF)
         view ([-pi/2 0 0])
 
         set(gcf, 'Position', get(0, 'Screensize'));
-        filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),'_viewfront.jpg')
+        filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.jpg')
 %         filename2 = sprintf('results/upperbodyPPS_%s_%0.2f_viewfront.jpg',DateTimeString,thrRF);
         print(fig, '-djpeg',filename2);
 %         saveas(fig, filename2);
