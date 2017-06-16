@@ -34,7 +34,8 @@ These scripts allow to generate (rather than learn) a handcrafted PPS .ini file 
 
 The scripts are in the `perfectPPSgenerationScripts` folder.
 
-Use this script to generate: [generatePerfectTaxelsFile.m](https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/generatePerfectTaxelsFile.m)
+Use this script to generate: [generatePerfectTaxelsFile.m](https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/generatePerfectTaxelsFile.m)  
+
 The shape can be set for example here: [writeTaxelsFile_n.m](https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/writeTaxelsFile_n.m)
 
 Note: currently, the "mapping" section generated is not correct and has to be replaced by hand.
