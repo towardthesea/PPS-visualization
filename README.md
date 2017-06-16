@@ -1,4 +1,3 @@
-=============================
 PPS-Visualization
 =============================
 The repository provides Matlab scripts and functions to handle mainly visualization-related things of the peripersonal space (PPS) representation of the iCub humanoid robot.
