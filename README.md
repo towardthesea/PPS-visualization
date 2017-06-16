@@ -4,7 +4,7 @@ The repository provides Matlab scripts and functions to handle mainly visualizat
 
 PPS in iCub is provided by this module: [peripersonal-space] (https://github.com/robotology/peripersonal-space)
 
-# Main PPS visualization
+## Main PPS visualization
 
 Please run the command in the same folder or add the path of the folder before running
 	**main**: to visualize the whole upper body PPS as shown in figure
@@ -17,27 +17,27 @@ Main can optionally take up two parameters: `main(thrRF,SKIN_VERSION)` where
  - `SKIN_VERSION` applies to forearm versions, so that the correct taxel positions are loaded. Default: 2
  
 All files with learned / handcrafted represenations are stored in the `ppsTaxelsFiles` directory. The ones that are loaded and plotted are specified in the individual script files:
- - https://github.com/towardthesea/PPS-visualization/blob/master/left_forearm/ppsPlot_leftForearm_func.m#L14
- - https://github.com/towardthesea/PPS-visualization/blob/master/left_palm/ppsPlot_leftPalm_func.m#L14
- - https://github.com/towardthesea/PPS-visualization/blob/master/right_forearm/ppsPlot_rightForearm_func.m#L14
-- https://github.com/towardthesea/PPS-visualization/blob/master/right_palm/ppsPlot_rightPalm_func.m#L15
+ - [ppsPlot_leftForearm_func.m](https://github.com/towardthesea/PPS-visualization/blob/master/left_forearm/ppsPlot_leftForearm_func.m#L14)
+ - [ppsPlot_leftPalm_func.m](https://github.com/towardthesea/PPS-visualization/blob/master/left_palm/ppsPlot_leftPalm_func.m#L14)
+ - [ppsPlot_rightForearm_func.m](https://github.com/towardthesea/PPS-visualization/blob/master/right_forearm/ppsPlot_rightForearm_func.m#L14)
+- [ppsPlot_rightPalm_func.m](https://github.com/towardthesea/PPS-visualization/blob/master/right_palm/ppsPlot_rightPalm_func.m#L15)
 
-# Invidual body part PPS visualization 
+## Invidual body part PPS visualization 
 Please refer to: 
-- https://github.com/towardthesea/PPS-visualization/blob/master/left_forearm/ppsPlot_leftForearm.m
-- https://github.com/towardthesea/PPS-visualization/blob/master/left_palm/ppsPlot_leftPalm.m
-- https://github.com/towardthesea/PPS-visualization/blob/master/right_forearm/ppsPlot_rightForearm.m
-- https://github.com/towardthesea/PPS-visualization/blob/master/right_palm/ppsPlot_rightPalm.m
+- [ppsPlot_leftForearm.m](https://github.com/towardthesea/PPS-visualization/blob/master/left_forearm/ppsPlot_leftForearm.m)
+- [ppsPlot_leftPalm.m](https://github.com/towardthesea/PPS-visualization/blob/master/left_palm/ppsPlot_leftPalm.m)
+- [ppsPlot_rightForearm.m](https://github.com/towardthesea/PPS-visualization/blob/master/right_forearm/ppsPlot_rightForearm.m)
+- [ppsPlot_rightPalm.m](https://github.com/towardthesea/PPS-visualization/blob/master/right_palm/ppsPlot_rightPalm.m)
 
-# Perfect (handcrafted) PPS generation
+## Perfect (handcrafted) PPS generation
 These scripts allow to generate (rather than learn) a handcrafted PPS .ini file - possibly a "perfect" representation.
 
 The scripts are in the `perfectPPSgenerationScripts` folder.
 
-Use this script to generate: https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/generatePerfectTaxelsFile.m
-The shape can be set for example here: https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/writeTaxelsFile_n.m
+Use this script to generate: [generatePerfectTaxelsFile.m](https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/generatePerfectTaxelsFile.m)
+The shape can be set for example here: [writeTaxelsFile_n.m](https://github.com/towardthesea/PPS-visualization/blob/master/perfectPPSgenerationScripts/writeTaxelsFile_n.m)
 
 Note: currently, the "mapping" section generated is not correct and has to be replaced by hand.
 
-# Receptive field formulation and visualization
+## Receptive field formulation and visualization
 The `maximumRF.m` script contains formulation and visualization of the spherical sector that forms the RF of individual taxels.
