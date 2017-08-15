@@ -6,7 +6,10 @@
 % Email: phuong.nguyen@iit.it; ph17dn@gmail.com
 % Contributions: Matej Hoffmann, matej.hoffmann@iit.it
 
-%%
+%% Help
+% param1: thrRF - threshold for the RF, 0 for whole, 1 for nothing
+% param2: SKIN_VERSION - only for forearms
+% param3: percRF - percentage of RF length, 1 for whole
 function out = main(varargin)
 
 addpath(genpath('./ICubFwdKin/'));
@@ -94,16 +97,19 @@ for i=1:length(thrRF)
 
     ppsPlot_leftForearm_func(fig,G_sL8_l,1,thrRF(i),SKIN_VERSION, percRF_left);
 %    ppsPlot_leftPalm_func(fig,G_sL10_l,1,thrRF(i));
-
+    xt = get(gca, 'XTick');    set(gca, 'FontSize', 45);
+    yt = get(gca, 'YTick');    set(gca, 'FontSize', 45);
+    zt = get(gca, 'ZTick');    set(gca, 'FontSize', 45);
     hold off;
     colormap(fig,autumn);
 
     titleString = strcat('PPS visualization for iCub upper body with thrRF = ',num2str(thrRF(i)),...
     ', percRF(right,left) = [',num2str(percRF_right),', ',num2str(percRF_left),']');
-    title(titleString);
-    xlim([-0.8 0.4]);
-    ylim([-0.9 0.9]);
-    zlim([-0.5 0.8]);
+%     title(titleString);
+%     xlim([-0.8 0.4]);
+%     ylim([-0.9 0.9]);
+%     zlim([-0.5 0.8]);
+    
     view(2);
     caxis([-1 0]);
 
@@ -113,9 +119,9 @@ for i=1:length(thrRF)
     set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
 
-    xlabel('x(m)','FontSize',14);    
-    ylabel('y(m)','FontSize',14);    
-    zlabel('z(m)','FontSize',14);
+    xlabel('x(m)','FontSize',50,'FontWeight','bold');    
+    ylabel('y(m)','FontSize',50,'FontWeight','bold');    
+    zlabel('z(m)','FontSize',50,'FontWeight','bold');
 
     if (EXPORT_TO_FILES)
         DateTimeString = datestr(now,30);   % Time format: (ISO 8601)  'yyyymmddTHHMMSS'
@@ -123,9 +129,12 @@ for i=1:length(thrRF)
         set(gcf, 'Position', get(0, 'Screensize'));
         filename1 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
             '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewtop.jpg')
+        filename1eps = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewtop.eps')
         filename  = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
             '_',num2str(percRF_right),'-',num2str(percRF_left),'.fig');
         print(fig, '-djpeg',filename1);
+        print(fig, '-depsc',filename1eps);
         saveas(fig,filename)
     %     filename = sprintf('upperbodyPPS_view2.pdf');
     %     print(fig, '-dpdf', '-bestfit',filename);
@@ -135,8 +144,11 @@ for i=1:length(thrRF)
         set(gcf, 'Position', get(0, 'Screensize'));
         filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
             '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.jpg')
+        filename2eps = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.eps')
 %         filename2 = sprintf('results/upperbodyPPS_%s_%0.2f_viewfront.jpg',DateTimeString,thrRF);
         print(fig, '-djpeg',filename2);
+        print(fig, '-depsc',filename2eps);
 %         saveas(fig, filename2);
         
 %         clear filename filename1 fig
