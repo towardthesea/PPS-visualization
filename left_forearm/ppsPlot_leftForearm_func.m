@@ -229,7 +229,7 @@ posOrigin = matT(1:3,4)';
         
 %% Plot whole PPS
 figure(fig); hold on
-title('PPS of left foreram taxels (in 1st wrist FoR - FoR_8)');
+% title('PPS of left foreram taxels (in 1st wrist FoR - FoR_8)');
 colormap autumn %flag hot
 
 for i=1:M
