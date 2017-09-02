@@ -11,7 +11,10 @@
 % param2: SKIN_VERSION - only for forearms
 % param3: percRF - percentage of RF length, 1 for whole
 function out = main(varargin)
-
+% MAIN draw the PPS for whole-body
+%   arg1 thrRF
+%   arg2 Skin version
+%   arg3 percRF
 addpath(genpath('./ICubFwdKin/'));
 addpath('./left_forearm');
 addpath('./left_palm');
