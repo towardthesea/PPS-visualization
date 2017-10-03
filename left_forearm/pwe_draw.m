@@ -168,7 +168,7 @@ for i=1:1
         end
         figureTitle = sprintf('Taxel %ith',l_forearm(i));
 %         subplot(2,2,mod(j,5));[f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,1,[RFmin RFmax]);
-        parzen_estimation(D,P(i,:),4*d,'r',figureTitle,1,[RFmin RFmax]);
+        parzen_estimation(D,P(i,:),4*d,'r','',1,[RFmin RFmax]);
         grid on
         filename = strcat('../results/pwe_',num2str(percRF),'.jpg')
         filenameeps = strcat('../results/pwe_',num2str(percRF),'.eps')
