@@ -5,11 +5,9 @@
 % Author: NGUYEN Dong Hai Phuong
 % Email: phuong.nguyen@iit.it; ph17dn@gmail.com
 % Contributions: Matej Hoffmann, matej.hoffmann@iit.it
-
-%% Help
-% param1: thrRF - threshold for the RF, 0 for whole, 1 for nothing
-% param2: SKIN_VERSION - only for forearms
-% param3: percRF - percentage of RF length, 1 for whole
+% arg1: thrRF - threshold for the RF, 0 for whole, 1 for nothing
+% arg2: SKIN_VERSION - only for forearms
+% arg3: percRF - percentage of RF length, 1 for whole
 function out = main(varargin)
 % MAIN draw the PPS for whole-body
 %   arg1 thrRF
