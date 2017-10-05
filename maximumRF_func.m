@@ -7,10 +7,12 @@
 
 
 function [h] = maximumRF_func( pos, range, parzenFunc,varargin )
-% pos: 3D position of taxel
-% range: signature value to indicate the part of forearm where the taxel
-% locates (upper or lower)
-% parzenFunc: value of the parzen estimation wrt the distance to taxel
+%MAXIMUMRF_FUNC function to draw the maximum visual receptive field (RF) 
+%around a taxel for peripersonal space (PPS) representations 
+%   pos: 3D position of taxel
+%   range: signature value to indicate the part of forearm where the taxel
+%   locates (upper or lower)
+%   parzenFunc: value of the parzen estimation wrt the distance to taxel
 res_angle = 100;
 
 PLOT_NEGATIVE_RF = false;
@@ -18,8 +20,8 @@ PLOT_NEGATIVE_RF = false;
 % Add PLOT_NEGATIVE_RF as input
 RF = [-.1 .2];
 thr = 0.0;
-res = 20; % resolution
-transparent = 1;
+res = 4; % resolution
+transparent = 0.1;
 
 if (~isempty(varargin))
     if(length(varargin)>=4)

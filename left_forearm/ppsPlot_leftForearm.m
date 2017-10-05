@@ -12,7 +12,7 @@ addpath('../');
 
 SKIN_VERSION = 2; 
 
-percRF = 1.0
+percRF = 1
 
 printToFile = 0;
 
@@ -147,7 +147,7 @@ d = (RFmax-RFmin)/numPts;
 D = RFmin+d:d:RFmax;
 xi = RFmin+d:d/10:RFmax;
 j=1;
-for i=1:length(l_forearm)
+for i=1:1%length(l_forearm)
     values(i,1:length(raw)-1) = cell2mat(raw(i,2:length(raw)));
     p(i,1:(length(raw)-1)/2) = values(i,1:(length(raw)-1)/2);
     n(i,1:(length(raw)-1)/2) = values(i,(length(raw)-1)/2+1:(length(raw)-1));

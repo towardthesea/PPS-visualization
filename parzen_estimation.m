@@ -42,9 +42,14 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
     size(bC);
 
     plotFigure = 1;
+    plotFigure_modulated = 0;
     RF = [-0.1 0.2];
     if (~isempty(varargin))
-        if (length(varargin)>=2)
+        if (length(varargin)>=3)
+            plotFigure = varargin{1};
+            RF = varargin{2};
+            plotFigure_modulated = varargin{3};
+        elseif (length(varargin)>=2)
             plotFigure = varargin{1};
             RF = varargin{2};
         elseif (length(varargin)>=1)
@@ -53,12 +58,16 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
     end
     if (plotFigure)
         hold on;
-        bar(bX,bC);
+        bar(bX,bC,'g');
         title(titleStr);
         plot(x,res,'LineWidth',2,'color',color);
+        if (plotFigure_modulated)
+            plot(x,0.5*res,'b--','LineWidth',4);%,'color',[1 0.5 0]);
+        end
         xtick = [RF(1):0.1:0,0:0.1:RF(2)];
         set(gca,'YTick',[0:0.2:1],'XTick',xtick,'FontSize',40);
-        xlabel('D[m]','FontSize',40,'FontWeight','bold');
+        xlabel('Distance (m)','FontSize',40);
+        ylabel('Activation','FontSize',40);
         axis([range(1)-.01 range(end)+.01 0 1]);
         hold off;
     end

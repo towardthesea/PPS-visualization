@@ -115,13 +115,13 @@ for i=1:length(thrRF)
 
     cbh=colorbar;
     set(cbh,'YTick',-1:.1:0);
-    % set(cbh,'YDir','reverse');
+    set(cbh,'YDir','reverse');
     set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
 
-    xlabel('x(m)','FontSize',50,'FontWeight','bold');    
-    ylabel('y(m)','FontSize',50,'FontWeight','bold');    
-    zlabel('z(m)','FontSize',50,'FontWeight','bold');
+    xlabel('x (m)','FontSize',50);    
+    ylabel('y (m)','FontSize',50);    
+    zlabel('z (m)','FontSize',50);
 
     if (EXPORT_TO_FILES)
         DateTimeString = datestr(now,30);   % Time format: (ISO 8601)  'yyyymmddTHHMMSS'

@@ -11,8 +11,13 @@
 
 %%
 function [ h ] = hist_map3d( pos, range, parzenFunc,varargin )
-%UNTITLED Summary of this function goes here
+%HIST_MAP3D Function to display the receptive field of a skin taxel
 %   Detailed explanation goes here
+%   pos: position of skin taxel
+%   range: vector of sample of distance to taxel
+%   parzenFunc: parzen estimation value of pps activation
+%   varargin(1): resolution of visualization
+%   varargin(2): transparent of visualization
 
 res = 100;
 transparent = 1;
