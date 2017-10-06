@@ -61,14 +61,21 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
         bar(bX,bC,'g');
         title(titleStr);
         plot(x,res,'LineWidth',2,'color',color);
+        t = range(1):0.01:range(end);
+        
+        plot(t,0.2*ones(length(t)),'k.','LineWidth',1);
         if (plotFigure_modulated)
-            plot(x,0.5*res,'b--','LineWidth',4);%,'color',[1 0.5 0]);
+            plot(x,0.5*res,'b--','LineWidth',4);%,'color',[1 0.5 0]);   %hand
+            plot(x,2*res,'--','LineWidth',4,'color',[1 0.5 0]); %head
         end
         xtick = [RF(1):0.1:0,0:0.1:RF(2)];
-        set(gca,'YTick',[0:0.2:1],'XTick',xtick,'FontSize',40);
+        set(gca,'YTick',[0:0.2:2],'XTick',xtick,'FontSize',40);
+%         ylim([0 2]);
         xlabel('Distance (m)','FontSize',40);
         ylabel('Activation','FontSize',40);
-        axis([range(1)-.01 range(end)+.01 0 1]);
+%         xlim([-0.05 0.46]);
+%         xlim([range(1)-.01 range(end)+.01]);
+        axis([range(1)-.01 range(end)+.01 0 2]);
         hold off;
     end
     
