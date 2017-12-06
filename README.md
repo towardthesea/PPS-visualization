@@ -9,7 +9,7 @@ PPS in iCub is provided by this module: [peripersonal-space] (https://github.com
 2. [Individual body part PPS visualization](#individual-body-part-pps-visualization)
 3. [Perfect PPS generation](#perfect-pps-generation)
 4. [Receptive field formulation and visualization](#receptive-field-formulation-and-visualization)
-5. [How to](how-to)
+5. [How to](#how-to)
 
 
 ## Main PPS visualization
