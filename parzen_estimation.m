@@ -58,18 +58,18 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
     end
     if (plotFigure)
         hold on;
-        bar(bX,bC,'g');
+        bar(bX,bC,'c','EdgeColor','c','FaceAlpha',0.5);
         title(titleStr);
-        plot(x,res,'LineWidth',2,'color',color);
+        plot(x,res,'LineWidth',6,'color',color);
         t = range(1):0.01:range(end);
         
         plot(t,0.2*ones(length(t)),'k.','LineWidth',1);
         if (plotFigure_modulated)
-            plot(x,0.5*res,'b--','LineWidth',4);%,'color',[1 0.5 0]);   %hand
-            plot(x,2*res,'--','LineWidth',4,'color',[1 0.5 0]); %head
+            plot(x,0.5*res,'b--','LineWidth',6);%,'color',[1 0.5 0]);   %hand
+            plot(x,2*res,'--','LineWidth',6,'color',[1 0.5 0]); %head
         end
         xtick = [RF(1):0.1:0,0:0.1:RF(2)];
-        set(gca,'YTick',[0:0.2:2],'XTick',xtick,'FontSize',40);
+        set(gca,'YTick',[0:0.4:2],'XTick',xtick,'FontSize',40);
 %         ylim([0 2]);
         xlabel('Distance (m)','FontSize',40);
         ylabel('Activation','FontSize',40);

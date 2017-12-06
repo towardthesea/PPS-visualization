@@ -106,11 +106,7 @@ for i=1:length(thrRF)
 
     titleString = strcat('PPS visualization for iCub upper body with thrRF = ',num2str(thrRF(i)),...
     ', percRF(right,left) = [',num2str(percRF_right),', ',num2str(percRF_left),']');
-%     title(titleString);
-%     xlim([-0.8 0.4]);
-%     ylim([-0.9 0.9]);
-%     zlim([-0.5 0.8]);
-    
+     
     view(2);
     caxis([-1 0]);
 
@@ -119,10 +115,13 @@ for i=1:length(thrRF)
     set(cbh,'YDir','reverse');
     set(cbh,'YTickLabel',{'1','0.9','0.8','0.7','0.6','0.5','0.4','0.3','0.2','0.1','0'})
 
-
     xlabel('x (m)','FontSize',50);    
     ylabel('y (m)','FontSize',50);    
     zlabel('z (m)','FontSize',50);
+    
+    axis off
+    ylim([-0.8 0.6])
+    zlim([-0.45 0.65])
 
     if (EXPORT_TO_FILES)
         DateTimeString = datestr(now,30);   % Time format: (ISO 8601)  'yyyymmddTHHMMSS'
@@ -144,15 +143,12 @@ for i=1:length(thrRF)
 
         set(gcf, 'Position', get(0, 'Screensize'));
         filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
-            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.jpg')
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewback.jpg')
         filename2eps = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
-            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.eps')
-%         filename2 = sprintf('results/upperbodyPPS_%s_%0.2f_viewfront.jpg',DateTimeString,thrRF);
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewback.eps')
         print(fig, '-djpeg',filename2);
         print(fig, '-depsc',filename2eps);
-%         saveas(fig, filename2);
         
-%         clear filename filename1 fig
         clearvars -except wtheta htheta ratheta latheta thrRF i EXPORT_TO_FILES
         close all       
 
