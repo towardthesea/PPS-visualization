@@ -140,7 +140,7 @@ for i=1:length(thrRF)
     %     filename = sprintf('upperbodyPPS_view2.pdf');
     %     print(fig, '-dpdf', '-bestfit',filename);
 
-        view ([-pi/2 0 0])
+        view ([pi/2 0 0])
 
         set(gcf, 'Position', get(0, 'Screensize'));
         filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
