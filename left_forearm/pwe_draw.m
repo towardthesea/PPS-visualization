@@ -168,8 +168,20 @@ for i=1:1
         end
         figureTitle = sprintf('Taxel %ith',l_forearm(i));
 %         subplot(2,2,mod(j,5));[f(i,:),x] = parzen_estimation(D,P(i,:),4*d,'r',figureTitle,1,[RFmin RFmax]);
-        parzen_estimation(D,P(i,:),4*d,'g','',1,[RFmin RFmax],1);
-        grid on
+        green = hex2rgb('#2f786e')
+        parzen_estimation(D,P(i,:),4*d,green,'',1,[RFmin RFmax],1);
+%         grid on
+
+        ax = gca
+        k = 1;
+        outerpos = ax.OuterPosition;
+        ti = ax.TightInset;
+        left = outerpos(1) + k*ti(1);
+        bottom = outerpos(2)+  ti(2);
+        ax_width = outerpos(3) - 1.2*k*ti(1);
+        ax_height = outerpos(4) - ti(2) - ti(4);
+        ax.Position = [left bottom ax_width ax_height];
+
         filename = strcat('../results/pwe_',num2str(percRF),'.jpg')
         filenameeps = strcat('../results/pwe_',num2str(percRF),'.eps')
 %         filename2 = sprintf('results/upperbodyPPS_%s_%0.2f_viewfront.jpg',DateTimeString,thrRF);

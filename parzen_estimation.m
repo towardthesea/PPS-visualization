@@ -58,15 +58,18 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
     end
     if (plotFigure)
         hold on;
-        bar(bX,bC,'c','EdgeColor','c','FaceAlpha',0.5);
+        barColor = hex2rgb('#eb5358');
+        bar(bX,bC,'FaceColor',barColor,'EdgeColor',barColor,'FaceAlpha',0.7);
         title(titleStr);
         plot(x,res,'LineWidth',6,'color',color);
         t = range(1):0.01:range(end);
         
-        plot(t,0.2*ones(length(t)),'k.','LineWidth',1);
+        plot(t,0.2*ones(length(t)),'k.','MarkerSize', 15);
         if (plotFigure_modulated)
-            plot(x,0.5*res,'b--','LineWidth',6);%,'color',[1 0.5 0]);   %hand
-            plot(x,2*res,'--','LineWidth',6,'color',[1 0.5 0]); %head
+            handColor = hex2rgb('#308bc9');
+            headColor = hex2rgb('#c15112');
+            plot(x,0.5*res,'--','LineWidth',6,'color',handColor);%,'color',[1 0.5 0]);   %hand
+            plot(x,2*res,'--','LineWidth',6,'color',headColor);%[1 0.5 0]); %head
         end
         xtick = [RF(1):0.1:0,0:0.1:RF(2)];
         set(gca,'YTick',[0:0.4:2],'XTick',xtick,'FontSize',40);
