@@ -13,7 +13,7 @@ function [h] = maximumRF_func( pos, range, parzenFunc,varargin )
 %   range: signature value to indicate the part of forearm where the taxel
 %   locates (upper or lower)
 %   parzenFunc: value of the parzen estimation wrt the distance to taxel
-res_angle = 100;
+res_angle = 20;
 
 PLOT_NEGATIVE_RF = false;
 % TODO
@@ -21,7 +21,7 @@ PLOT_NEGATIVE_RF = false;
 RF = [-.1 .2];
 thr = 0.0;
 res = 4; % resolution
-transparent = 0.1;
+transparent = 0.5;
 
 if (~isempty(varargin))
     if(length(varargin)>=4)
