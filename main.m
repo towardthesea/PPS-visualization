@@ -103,6 +103,7 @@ for i=1:length(thrRF)
     zt = get(gca, 'ZTick');    set(gca, 'FontSize', 45);
     hold off;
     colormap(fig,autumn);
+%     colormap(fig,gray);
 
     titleString = strcat('PPS visualization for iCub upper body with thrRF = ',num2str(thrRF(i)),...
     ', percRF(right,left) = [',num2str(percRF_right),', ',num2str(percRF_left),']');
@@ -120,8 +121,8 @@ for i=1:length(thrRF)
     zlabel('z (m)','FontSize',50);
     
     axis off
-    ylim([-0.8 0.6])
-    zlim([-0.45 0.65])
+    ylim([-0.6 0.45])
+    zlim([-0.2 0.45])
 
     if (EXPORT_TO_FILES)
         DateTimeString = datestr(now,30);   % Time format: (ISO 8601)  'yyyymmddTHHMMSS'
@@ -139,13 +140,13 @@ for i=1:length(thrRF)
     %     filename = sprintf('upperbodyPPS_view2.pdf');
     %     print(fig, '-dpdf', '-bestfit',filename);
 
-        view ([pi/2 0 0])
+        view ([-pi/2 0 0])
 
         set(gcf, 'Position', get(0, 'Screensize'));
         filename2 = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
-            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewback.jpg')
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.jpg')
         filename2eps = strcat('results/upperbodyPPS_',DateTimeString,'_',num2str(thrRF(i)),...
-            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewback.eps')
+            '_',num2str(percRF_right),'-',num2str(percRF_left),'_viewfront.eps')
         print(fig, '-djpeg',filename2);
         print(fig, '-depsc',filename2eps);
         
