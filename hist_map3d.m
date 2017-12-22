@@ -20,7 +20,7 @@ function [ h ] = hist_map3d( pos, range, parzenFunc,varargin )
 %   varargin(2): transparent of visualization
 
 res = 100;
-transparent = 1;
+transparent = 0.1;
 
 if (~isempty(varargin))
     if (length(varargin)>=1)
@@ -53,7 +53,7 @@ for radius = range(1):10*d:range(end)
     [xs,ys,zs] = sph2cart(theta,phi,radius);
 
     b = parzenFunc(10*i)*ones(length(theta));
-    h(i) = mesh(xs+G(1),ys+G(2),zs+G(3),b);
+    h(i) = mesh(xs+G(1),ys+G(2),zs+G(3),b*0.1);
     set(h(i),'FaceAlpha',transparent);
     i = i+1;
     if i>(length(parzenFunc)/10)

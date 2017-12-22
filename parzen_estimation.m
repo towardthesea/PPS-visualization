@@ -15,6 +15,7 @@
 
 %%
 function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
+    FontSZ=30;
     H = values;
     nSampl = length(range);
     binWidth = (range(end)-range(1))/nSampl;
@@ -63,19 +64,33 @@ function [res, x] = parzen_estimation(range,values,sigm,color,titleStr,varargin)
         title(titleStr);
         plot(x,res,'LineWidth',6,'color',color);
         t = range(1):0.01:range(end);
-        
-        plot(t,0.2*ones(length(t)),'k.','MarkerSize', 15);
+             
         if (plotFigure_modulated)
             handColor = hex2rgb('#308bc9');
             headColor = hex2rgb('#c15112');
             plot(x,0.5*res,'--','LineWidth',6,'color',handColor);%,'color',[1 0.5 0]);   %hand
             plot(x,2*res,'--','LineWidth',6,'color',headColor);%[1 0.5 0]); %head
         end
-        xtick = [RF(1):0.1:0,0:0.1:RF(2)];
-        set(gca,'YTick',[0:0.4:2],'XTick',xtick,'FontSize',40);
+        
+%         plot(t,0.2*ones(length(t)),'k.','MarkerSize', 15);
+        plot(t,0.2*ones(length(t)),'k','LineWidth', 3);
+        
+        stupidDots = [0.235 0.3 0.35;
+                      0.2 0.2 0.2]
+        more_stupidDots = [stupidDots(1,:);
+                           0 0 0];
+        stupidArrows = more_stupidDots - stupidDots;
+        for i=1:3
+%             quiver(stupidDots(1,i),stupidDots(2,i),stupidArrows(1,i),stupidArrows(2,i),0, 'k-', 'LineWidth',3);
+            plot([stupidDots(1,i), more_stupidDots(1,i)], [stupidDots(2,i),more_stupidDots(2,i)], 'k-', 'LineWidth',3);
+        end
+        plot(stupidDots(1,:),stupidDots(2,:), 'ko','MarkerSize', 10, 'LineWidth', 3, 'MarkerFaceColor','k');
+        
+        xtick = [RF(1):0.1:0,0.1,0.23,0.3,0.35,RF(2)];
+        set(gca,'YTick',[0,0.2,0.4:0.4:2],'XTick',xtick,'FontSize',FontSZ);
 %         ylim([0 2]);
-        xlabel('Distance (m)','FontSize',40);
-        ylabel('Activation','FontSize',40);
+        xlabel('Distance (m)','FontSize',FontSZ);
+        ylabel('Activation','FontSize',FontSZ);
 %         xlim([-0.05 0.46]);
 %         xlim([range(1)-.01 range(end)+.01]);
         axis([range(1)-.01 range(end)+.01 0 2]);
