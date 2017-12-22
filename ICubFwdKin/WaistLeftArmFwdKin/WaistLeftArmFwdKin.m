@@ -148,9 +148,9 @@ if (display==1)
     jnt4 = DrawCylinder(ljnt, rjnt, G_sL2*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     %jnt5 = DrawCylinder(ljnt, rjnt, WG_sL3*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
 
-    DrawRefFrame(G_sL0,0)
-    DrawRefFrame(G_sL1,1)
-    DrawRefFrame(G_sL2,2)
+%     DrawRefFrame(G_sL0,0)
+%     DrawRefFrame(G_sL1,1)
+%     DrawRefFrame(G_sL2,2)
 
     % jnt1 = DrawCylinder(ljnt, rjnt, G_sL0 * [1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.8);
     jnt2 = DrawCylinder(ljnt, rjnt, G_sL3*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
@@ -168,14 +168,14 @@ if (display==1)
     % Palm
     %cy2 = DrawRectangle(G_sL10*[eye(3), [-42.5/2 0 0]'; 0 0 0 1],  42.5, 30, 10);
 
-    DrawRefFrame(G_sL3,3)
-    DrawRefFrame(G_sL4,4)
-    DrawRefFrame(G_sL5,5)
-    DrawRefFrame(G_sL6,6)
-    DrawRefFrame(G_sL7,7)
-    DrawRefFrame(G_sL8,8)
-    DrawRefFrame(G_sL9,9)
-    DrawRefFrame(G_sL10,10)
+%     DrawRefFrame(G_sL3,3)
+%     DrawRefFrame(G_sL4,4)
+%     DrawRefFrame(G_sL5,5)
+%     DrawRefFrame(G_sL6,6)
+%     DrawRefFrame(G_sL7,7)
+%     DrawRefFrame(G_sL8,8)
+%     DrawRefFrame(G_sL9,9)
+%     DrawRefFrame(G_sL10,10)
     %DrawRefFrame(G_sL10*[Ry(pi) zeros(3,1); zeros(1,3) 1],11)
     
     %Draw the hand

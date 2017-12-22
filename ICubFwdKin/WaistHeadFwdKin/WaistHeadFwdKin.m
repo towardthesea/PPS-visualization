@@ -160,9 +160,9 @@ if (display == 1)
     jnt3 = DrawCylinder(ljnt, rjnt, G_sL1*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     jnt4 = DrawCylinder(ljnt, rjnt, G_sL2*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
 
-    DrawRefFrame(G_sL0,0)
-    DrawRefFrame(G_sL1,1)
-    DrawRefFrame(G_sL2,2)
+%     DrawRefFrame(G_sL0,0)
+%     DrawRefFrame(G_sL1,1)
+%     DrawRefFrame(G_sL2,2)
     
     
     %Draw joints
@@ -171,22 +171,22 @@ if (display == 1)
     jnt4 = DrawCylinder(ljnt, rjnt, G_sL4*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     jnt5 = DrawCylinder(ljnt, rjnt, G_sL5*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     jnt6 = DrawCylinder(ljnt, rjnt, G_sL6*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
-    jnt7 = DrawCylinder(ljnt, rjnt, G_sL7*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
-    jnt8 = DrawCylinder(ljnt, rjnt, G_sL8*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
+%     jnt7 = DrawCylinder(ljnt, rjnt, G_sL7*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
+%     jnt8 = DrawCylinder(ljnt, rjnt, G_sL8*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
 
     %Draw eye-balls
     eye1 = DrawEye(15*k,  G_sL7, LinkColor2, 100, 0.3);
     eye1 = DrawEye(15*k, Gp_sL7, LinkColor2, 100, 0.3);
 
     %Draw cameras
-    cy2 = DrawCylinder(5*k, 5*k,  G_sL8*[Ry(0), [ 0 0 15*k]'; 0 0 0 1], CamColor, 10, 1);
-    cy2 = DrawCylinder(5*k, 5*k, Gp_sL8*[Ry(0), [ 0 0 15*k]'; 0 0 0 1], CamColor, 10, 1);
+%     cy2 = DrawCylinder(5*k, 5*k,  G_sL8*[Ry(0), [ 0 0 15*k]'; 0 0 0 1], CamColor, 10, 1);
+%     cy2 = DrawCylinder(5*k, 5*k, Gp_sL8*[Ry(0), [ 0 0 15*k]'; 0 0 0 1], CamColor, 10, 1);
 
-    DrawRefFrame(G_sL0,0)
-    DrawRefFrame(G_sL3,3)
-    DrawRefFrame(G_sL4,4)
-    DrawRefFrame(G_sL5,5)
-    DrawRefFrame(G_sL6,6)
+%     DrawRefFrame(G_sL0,0)
+%     DrawRefFrame(G_sL3,3)
+%     DrawRefFrame(G_sL4,4)
+%     DrawRefFrame(G_sL5,5)
+%     DrawRefFrame(G_sL6,6)
     
     % Draw RoF of eyes and camera
 %     DrawRefFrame(G_sL7,7)

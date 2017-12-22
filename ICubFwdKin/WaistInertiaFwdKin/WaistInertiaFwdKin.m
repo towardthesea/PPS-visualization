@@ -136,17 +136,17 @@ if display==1
     jnt3 = DrawCylinder(ljnt, rjnt, G_sL1*[1 0 0 0; 0 1 0 0; 0 0 1 -ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
     jnt4 = DrawCylinder(10*ljnt, 10*rjnt, G_sL2*[1 0 0 0; 0 1 0 0; 0 0 1 -10*ljnt/2; 0 0 0 1], JntColor, 100, 0.5);
 
-    DrawRefFrame(G_sL0,0)
-    DrawRefFrame(G_sL1,1)
-    DrawRefFrame(G_sL2,2)
+%     DrawRefFrame(G_sL0,0)
+%     DrawRefFrame(G_sL1,1)
+%     DrawRefFrame(G_sL2,2)
 
     %Draw sensor
     HandleCyl = DrawRectangle(G_sLI * [eye(3), [-Inertiax/2 -Inertiay/2 -Inertiaz/2]'; 0 0 0 1], Inertiax, Inertiay, Inertiaz);
 
-    DrawRefFrame(G_sL3,3)
-    DrawRefFrame(G_sL4,4)
-    DrawRefFrame(G_sL5,5)
-    DrawRefFrame(G_sLI,6)
+%     DrawRefFrame(G_sL3,3)
+%     DrawRefFrame(G_sL4,4)
+%     DrawRefFrame(G_sL5,5)
+%     DrawRefFrame(G_sLI,6)
     
     %Draw eye-balls
     eye1 = DrawEye(15*k,  G_sL7_RE, LinkColor2, 100, 0.3);
